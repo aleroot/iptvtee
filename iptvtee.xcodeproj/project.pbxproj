@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CA07A880285DAD0000060A6D /* TestStringUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA07A87F285DAD0000060A6D /* TestStringUtils.mm */; };
+		CA227ACF28573BA600967E65 /* report.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3081E227AE6E9B00415D02 /* report.cpp */; };
+		CA3081E427AE6E9B00415D02 /* report.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3081E227AE6E9B00415D02 /* report.cpp */; };
+		CA32573328B8E64400D487D8 /* TestParameter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA32573228B8E64400D487D8 /* TestParameter.mm */; };
+		CA32573428B8EABC00D487D8 /* parameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA4CA1F12870EB2600108897 /* parameter.cpp */; };
+		CA396E36266CDB1F00575ECD /* TestIptvTee.m in Sources */ = {isa = PBXBuildFile; fileRef = CA396E35266CDB1F00575ECD /* TestIptvTee.m */; };
+		CA396E3C266CDB7E00575ECD /* TestRank.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA396E3B266CDB7E00575ECD /* TestRank.mm */; };
+		CA3DE6E4265A590100FB3568 /* evaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE6E2265A590100FB3568 /* evaluator.cpp */; };
+		CA4CA1F32870EB2600108897 /* parameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA4CA1F12870EB2600108897 /* parameter.cpp */; };
+		CA512564285CCD8B00260CC4 /* exporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA512562285CCD8B00260CC4 /* exporter.cpp */; };
+		CA512579285CF4FE00260CC4 /* TestExporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA512578285CF4FE00260CC4 /* TestExporter.mm */; };
+		CA51257A285CF61B00260CC4 /* exporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA512562285CCD8B00260CC4 /* exporter.cpp */; };
+		CA65A2BE27A577D800471500 /* downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA65A2BC27A577D800471500 /* downloader.cpp */; };
+		CA685FA027A6840700FE9753 /* analyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA685F9E27A6840700FE9753 /* analyzer.cpp */; };
+		CA685FA327A8083E00FE9753 /* it.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA685FA227A8083E00FE9753 /* it.txt */; };
+		CA685FA527A83ED800FE9753 /* TestPlaylist.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA685FA427A83ED800FE9753 /* TestPlaylist.mm */; };
+		CA685FA627A8459700FE9753 /* playlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA95D31A27A422A500FBD8C0 /* playlist.cpp */; };
+		CA685FA727A845B800FE9753 /* downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA65A2BC27A577D800471500 /* downloader.cpp */; };
+		CA685FA927A9D08200FE9753 /* TestAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA685FA827A9D08200FE9753 /* TestAnalyzer.mm */; };
+		CA685FAA27A9D82D00FE9753 /* analyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA685F9E27A6840700FE9753 /* analyzer.cpp */; };
+		CA685FAB27A9D8D700FE9753 /* evaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE6E2265A590100FB3568 /* evaluator.cpp */; };
+		CA95D31C27A422A500FBD8C0 /* playlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA95D31A27A422A500FBD8C0 /* playlist.cpp */; };
+		CAA25B2926581FC6003E45A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAA25B2826581FC6003E45A4 /* main.cpp */; };
+		CAB650492860E6C000C1F41A /* TestUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = CAB650482860E6C000C1F41A /* TestUtils.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CAA25B2326581FC6003E45A4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CA07A87F285DAD0000060A6D /* TestStringUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestStringUtils.mm; sourceTree = "<group>"; };
+		CA07A882285DD48000060A6D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CA230B902854B54800A5C136 /* FileUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtils.hpp; sourceTree = "<group>"; };
+		CA3081E227AE6E9B00415D02 /* report.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = report.cpp; sourceTree = "<group>"; };
+		CA3081E327AE6E9B00415D02 /* report.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = report.hpp; sourceTree = "<group>"; };
+		CA32573228B8E64400D487D8 /* TestParameter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestParameter.mm; sourceTree = "<group>"; };
+		CA396E33266CDB1F00575ECD /* TestIptvTee.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestIptvTee.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA396E35266CDB1F00575ECD /* TestIptvTee.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestIptvTee.m; sourceTree = "<group>"; };
+		CA396E37266CDB1F00575ECD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA396E3B266CDB7E00575ECD /* TestRank.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestRank.mm; sourceTree = "<group>"; };
+		CA3DE6E2265A590100FB3568 /* evaluator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = evaluator.cpp; sourceTree = "<group>"; };
+		CA3DE6E3265A590100FB3568 /* evaluator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = evaluator.hpp; sourceTree = "<group>"; };
+		CA3DE6E6265A5BBF00FB3568 /* Evaluable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Evaluable.hpp; sourceTree = "<group>"; };
+		CA4CA1F12870EB2600108897 /* parameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parameter.cpp; sourceTree = "<group>"; };
+		CA4CA1F22870EB2600108897 /* parameter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = parameter.hpp; sourceTree = "<group>"; };
+		CA512562285CCD8B00260CC4 /* exporter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = exporter.cpp; sourceTree = "<group>"; };
+		CA512563285CCD8B00260CC4 /* exporter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = exporter.hpp; sourceTree = "<group>"; };
+		CA512578285CF4FE00260CC4 /* TestExporter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestExporter.mm; sourceTree = "<group>"; };
+		CA65A2BC27A577D800471500 /* downloader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = downloader.cpp; sourceTree = "<group>"; };
+		CA65A2BD27A577D800471500 /* downloader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = downloader.hpp; sourceTree = "<group>"; };
+		CA685F9E27A6840700FE9753 /* analyzer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = analyzer.cpp; sourceTree = "<group>"; };
+		CA685F9F27A6840700FE9753 /* analyzer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = analyzer.hpp; sourceTree = "<group>"; };
+		CA685FA227A8083E00FE9753 /* it.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = it.txt; sourceTree = "<group>"; };
+		CA685FA427A83ED800FE9753 /* TestPlaylist.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestPlaylist.mm; sourceTree = "<group>"; };
+		CA685FA827A9D08200FE9753 /* TestAnalyzer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestAnalyzer.mm; sourceTree = "<group>"; };
+		CA6A5CC628870E5200602A0F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		CA71977D28550992002061DD /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		CA95D31A27A422A500FBD8C0 /* playlist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = playlist.cpp; sourceTree = "<group>"; };
+		CA95D31B27A422A500FBD8C0 /* playlist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = playlist.hpp; sourceTree = "<group>"; };
+		CA95D32027A42D5F00FBD8C0 /* StringUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StringUtils.hpp; sourceTree = "<group>"; };
+		CA97B427285F218300AF423C /* iptvtee.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = iptvtee.py; sourceTree = "<group>"; };
+		CAA25B2526581FC6003E45A4 /* iptvtee */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = iptvtee; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAA25B2826581FC6003E45A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CAA25B3526582093003E45A4 /* Instance.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Instance.hpp; sourceTree = "<group>"; };
+		CAA25B3626582093003E45A4 /* MediaList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MediaList.hpp; sourceTree = "<group>"; };
+		CAA25B3726582093003E45A4 /* vlc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vlc.hpp; sourceTree = "<group>"; };
+		CAA25B3826582093003E45A4 /* Internal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Internal.hpp; sourceTree = "<group>"; };
+		CAA25B3926582093003E45A4 /* MediaLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MediaLibrary.hpp; sourceTree = "<group>"; };
+		CAA25B3A26582093003E45A4 /* structures.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = structures.hpp; sourceTree = "<group>"; };
+		CAA25B3B26582093003E45A4 /* Dialog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dialog.hpp; sourceTree = "<group>"; };
+		CAA25B3C26582093003E45A4 /* EventManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EventManager.hpp; sourceTree = "<group>"; };
+		CAA25B3D26582093003E45A4 /* RendererDiscoverer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RendererDiscoverer.hpp; sourceTree = "<group>"; };
+		CAA25B3E26582093003E45A4 /* MediaDiscoverer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MediaDiscoverer.hpp; sourceTree = "<group>"; };
+		CAA25B3F26582093003E45A4 /* Media.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Media.hpp; sourceTree = "<group>"; };
+		CAA25B4026582093003E45A4 /* MediaListPlayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MediaListPlayer.hpp; sourceTree = "<group>"; };
+		CAA25B4126582093003E45A4 /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
+		CAA25B4226582093003E45A4 /* Equalizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Equalizer.hpp; sourceTree = "<group>"; };
+		CAA25B4326582093003E45A4 /* MediaPlayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MediaPlayer.hpp; sourceTree = "<group>"; };
+		CAA25B4426582093003E45A4 /* Picture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Picture.hpp; sourceTree = "<group>"; };
+		CAB650482860E6C000C1F41A /* TestUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestUtils.mm; sourceTree = "<group>"; };
+		CABB073B28ECA91100440534 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CA396E30266CDB1F00575ECD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAA25B2226581FC6003E45A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CA396E34266CDB1F00575ECD /* TestIptvTee */ = {
+			isa = PBXGroup;
+			children = (
+				CA685FA127A8082D00FE9753 /* resources */,
+				CA396E35266CDB1F00575ECD /* TestIptvTee.m */,
+				CA396E37266CDB1F00575ECD /* Info.plist */,
+				CA396E3B266CDB7E00575ECD /* TestRank.mm */,
+				CA32573228B8E64400D487D8 /* TestParameter.mm */,
+				CA685FA427A83ED800FE9753 /* TestPlaylist.mm */,
+				CA685FA827A9D08200FE9753 /* TestAnalyzer.mm */,
+				CA512578285CF4FE00260CC4 /* TestExporter.mm */,
+				CA07A87F285DAD0000060A6D /* TestStringUtils.mm */,
+				CAB650482860E6C000C1F41A /* TestUtils.mm */,
+			);
+			path = TestIptvTee;
+			sourceTree = "<group>";
+		};
+		CA3DE6E1265A58DF00FB3568 /* iptv */ = {
+			isa = PBXGroup;
+			children = (
+				CA65A2BB27A577C500471500 /* http */,
+				CA3DE6E2265A590100FB3568 /* evaluator.cpp */,
+				CA3DE6E3265A590100FB3568 /* evaluator.hpp */,
+				CA3DE6E6265A5BBF00FB3568 /* Evaluable.hpp */,
+				CA95D31A27A422A500FBD8C0 /* playlist.cpp */,
+				CA95D31B27A422A500FBD8C0 /* playlist.hpp */,
+				CA685F9E27A6840700FE9753 /* analyzer.cpp */,
+				CA3081E227AE6E9B00415D02 /* report.cpp */,
+				CA3081E327AE6E9B00415D02 /* report.hpp */,
+				CA685F9F27A6840700FE9753 /* analyzer.hpp */,
+				CA512562285CCD8B00260CC4 /* exporter.cpp */,
+				CA512563285CCD8B00260CC4 /* exporter.hpp */,
+				CA4CA1F12870EB2600108897 /* parameter.cpp */,
+				CA4CA1F22870EB2600108897 /* parameter.hpp */,
+			);
+			path = iptv;
+			sourceTree = "<group>";
+		};
+		CA65A2BB27A577C500471500 /* http */ = {
+			isa = PBXGroup;
+			children = (
+				CA65A2BC27A577D800471500 /* downloader.cpp */,
+				CA65A2BD27A577D800471500 /* downloader.hpp */,
+			);
+			path = http;
+			sourceTree = "<group>";
+		};
+		CA685FA127A8082D00FE9753 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				CA685FA227A8083E00FE9753 /* it.txt */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		CA95D31E27A42D4300FBD8C0 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				CA95D32027A42D5F00FBD8C0 /* StringUtils.hpp */,
+				CA230B902854B54800A5C136 /* FileUtils.hpp */,
+				CA71977D28550992002061DD /* Utils.hpp */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		CAA25B1C26581FC6003E45A4 = {
+			isa = PBXGroup;
+			children = (
+				CABB073B28ECA91100440534 /* .gitignore */,
+				CA6A5CC628870E5200602A0F /* Makefile */,
+				CA97B427285F218300AF423C /* iptvtee.py */,
+				CA07A882285DD48000060A6D /* README.md */,
+				CAA25B332658207F003E45A4 /* libs */,
+				CAA25B2726581FC6003E45A4 /* iptvtee */,
+				CA396E34266CDB1F00575ECD /* TestIptvTee */,
+				CAA25B2626581FC6003E45A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CAA25B2626581FC6003E45A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAA25B2526581FC6003E45A4 /* iptvtee */,
+				CA396E33266CDB1F00575ECD /* TestIptvTee.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAA25B2726581FC6003E45A4 /* iptvtee */ = {
+			isa = PBXGroup;
+			children = (
+				CA95D31E27A42D4300FBD8C0 /* utils */,
+				CA3DE6E1265A58DF00FB3568 /* iptv */,
+				CAA25B2826581FC6003E45A4 /* main.cpp */,
+			);
+			path = iptvtee;
+			sourceTree = "<group>";
+		};
+		CAA25B332658207F003E45A4 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				CAA25B3426582093003E45A4 /* vlcpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		CAA25B3426582093003E45A4 /* vlcpp */ = {
+			isa = PBXGroup;
+			children = (
+				CAA25B3526582093003E45A4 /* Instance.hpp */,
+				CAA25B3626582093003E45A4 /* MediaList.hpp */,
+				CAA25B3726582093003E45A4 /* vlc.hpp */,
+				CAA25B3826582093003E45A4 /* Internal.hpp */,
+				CAA25B3926582093003E45A4 /* MediaLibrary.hpp */,
+				CAA25B3A26582093003E45A4 /* structures.hpp */,
+				CAA25B3B26582093003E45A4 /* Dialog.hpp */,
+				CAA25B3C26582093003E45A4 /* EventManager.hpp */,
+				CAA25B3D26582093003E45A4 /* RendererDiscoverer.hpp */,
+				CAA25B3E26582093003E45A4 /* MediaDiscoverer.hpp */,
+				CAA25B3F26582093003E45A4 /* Media.hpp */,
+				CAA25B4026582093003E45A4 /* MediaListPlayer.hpp */,
+				CAA25B4126582093003E45A4 /* common.hpp */,
+				CAA25B4226582093003E45A4 /* Equalizer.hpp */,
+				CAA25B4326582093003E45A4 /* MediaPlayer.hpp */,
+				CAA25B4426582093003E45A4 /* Picture.hpp */,
+			);
+			path = vlcpp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CA396E32266CDB1F00575ECD /* TestIptvTee */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA396E38266CDB1F00575ECD /* Build configuration list for PBXNativeTarget "TestIptvTee" */;
+			buildPhases = (
+				CA396E2F266CDB1F00575ECD /* Sources */,
+				CA396E30266CDB1F00575ECD /* Frameworks */,
+				CA396E31266CDB1F00575ECD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestIptvTee;
+			productName = TestIptvTee;
+			productReference = CA396E33266CDB1F00575ECD /* TestIptvTee.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CAA25B2426581FC6003E45A4 /* iptvtee */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAA25B2C26581FC6003E45A4 /* Build configuration list for PBXNativeTarget "iptvtee" */;
+			buildPhases = (
+				CAA25B2126581FC6003E45A4 /* Sources */,
+				CAA25B2226581FC6003E45A4 /* Frameworks */,
+				CAA25B2326581FC6003E45A4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iptvtee;
+			productName = iptvtee;
+			productReference = CAA25B2526581FC6003E45A4 /* iptvtee */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CAA25B1D26581FC6003E45A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					CA396E32266CDB1F00575ECD = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					CAA25B2426581FC6003E45A4 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = CAA25B2026581FC6003E45A4 /* Build configuration list for PBXProject "iptvtee" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CAA25B1C26581FC6003E45A4;
+			productRefGroup = CAA25B2626581FC6003E45A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CAA25B2426581FC6003E45A4 /* iptvtee */,
+				CA396E32266CDB1F00575ECD /* TestIptvTee */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CA396E31266CDB1F00575ECD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA685FA327A8083E00FE9753 /* it.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CA396E2F266CDB1F00575ECD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA32573428B8EABC00D487D8 /* parameter.cpp in Sources */,
+				CA07A880285DAD0000060A6D /* TestStringUtils.mm in Sources */,
+				CA32573328B8E64400D487D8 /* TestParameter.mm in Sources */,
+				CA51257A285CF61B00260CC4 /* exporter.cpp in Sources */,
+				CA227ACF28573BA600967E65 /* report.cpp in Sources */,
+				CA685FAA27A9D82D00FE9753 /* analyzer.cpp in Sources */,
+				CA685FAB27A9D8D700FE9753 /* evaluator.cpp in Sources */,
+				CA685FA527A83ED800FE9753 /* TestPlaylist.mm in Sources */,
+				CA396E36266CDB1F00575ECD /* TestIptvTee.m in Sources */,
+				CA396E3C266CDB7E00575ECD /* TestRank.mm in Sources */,
+				CA685FA927A9D08200FE9753 /* TestAnalyzer.mm in Sources */,
+				CAB650492860E6C000C1F41A /* TestUtils.mm in Sources */,
+				CA685FA627A8459700FE9753 /* playlist.cpp in Sources */,
+				CA512579285CF4FE00260CC4 /* TestExporter.mm in Sources */,
+				CA685FA727A845B800FE9753 /* downloader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAA25B2126581FC6003E45A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA512564285CCD8B00260CC4 /* exporter.cpp in Sources */,
+				CAA25B2926581FC6003E45A4 /* main.cpp in Sources */,
+				CA685FA027A6840700FE9753 /* analyzer.cpp in Sources */,
+				CA95D31C27A422A500FBD8C0 /* playlist.cpp in Sources */,
+				CA65A2BE27A577D800471500 /* downloader.cpp in Sources */,
+				CA3DE6E4265A590100FB3568 /* evaluator.cpp in Sources */,
+				CA3081E427AE6E9B00415D02 /* report.cpp in Sources */,
+				CA4CA1F32870EB2600108897 /* parameter.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CA396E39266CDB1F00575ECD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_MASTER_OBJECT_FILE = NO;
+				INFOPLIST_FILE = TestIptvTee/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = alessio.pollero.TestIptvTee;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CA396E3A266CDB1F00575ECD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_MASTER_OBJECT_FILE = NO;
+				INFOPLIST_FILE = TestIptvTee/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = alessio.pollero.TestIptvTee;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CAA25B2A26581FC6003E45A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					libs/,
+					/Applications/VLC.app/Contents/MacOS/include/,
+				);
+				LD_RUNPATH_SEARCH_PATHS = /Applications/VLC.app/Contents/MacOS/lib/;
+				LIBRARY_SEARCH_PATHS = /Applications/VLC.app/Contents/MacOS/lib/;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lvlc",
+					"-lcurl",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CAA25B2B26581FC6003E45A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					libs/,
+					/Applications/VLC.app/Contents/MacOS/include/,
+				);
+				LD_RUNPATH_SEARCH_PATHS = /Applications/VLC.app/Contents/MacOS/lib/;
+				LIBRARY_SEARCH_PATHS = /Applications/VLC.app/Contents/MacOS/lib/;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lvlc",
+					"-lcurl",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CAA25B2D26581FC6003E45A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CAA25B2E26581FC6003E45A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CA396E38266CDB1F00575ECD /* Build configuration list for PBXNativeTarget "TestIptvTee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA396E39266CDB1F00575ECD /* Debug */,
+				CA396E3A266CDB1F00575ECD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAA25B2026581FC6003E45A4 /* Build configuration list for PBXProject "iptvtee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAA25B2A26581FC6003E45A4 /* Debug */,
+				CAA25B2B26581FC6003E45A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAA25B2C26581FC6003E45A4 /* Build configuration list for PBXNativeTarget "iptvtee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAA25B2D26581FC6003E45A4 /* Debug */,
+				CAA25B2E26581FC6003E45A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CAA25B1D26581FC6003E45A4 /* Project object */;
+}

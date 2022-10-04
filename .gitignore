@@ -1,3 +1,19 @@
+build/
+
+*.pbxuser
+*.perspective
+*.perspectivev3
+
+## User settings
+xcuserdata/
+
+## Xcode 8 and earlier
+*.xcscmblueprint
+*.xccheckout
+
+# Mac OS X
+*.DS_Store
+
 # Prerequisites
 *.d
 
