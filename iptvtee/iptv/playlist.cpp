@@ -62,9 +62,17 @@ public:
 
 std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(const std::string&)> filter) {
     std::vector<Playlist> result;
-    HTTPDownloader downloader;
+    
     std::stringstream page;
-    downloader.download(url, page);
+    if(std::filesystem::exists(std::filesystem::path{ url })) {
+        std::ifstream file(url);
+        page << file.rdbuf();
+        file.close();
+    } else {
+        HTTPDownloader downloader;
+        downloader.download(url, page);
+    }
+    
     std::regex url_regex ("\"(?:https?://[^\"]+)?(https?://[^\"]+m3u8?)\"");
     std::string line;
     while (std::getline(page, line)) {

@@ -89,7 +89,7 @@ namespace AppUtils
 {
     inline int usage() {
         std::cerr << "iptvtee v1.0" << std::endl << "usage:" <<std::endl;
-        std::cerr << "iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --filter=term] file.m3u" << std::endl;
+        std::cerr << "iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --filter=term --page=example.org] file.m3u" << std::endl;
         return 1;
     }
 }
