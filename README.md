@@ -4,7 +4,7 @@ iptvtee is a small utility to check quality of M3U streams.
 ## usage
 
 ```
-    iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --page=url] file.m3u
+    iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --max=5 --page=url] file.m3u
 ```
 ### Parameters descritpion 
 
@@ -15,6 +15,7 @@ iptvtee is a small utility to check quality of M3U streams.
  - score: minimum score of the flow. tested flow under this minimum are filtered out from the result.
  - page: an HTML url page to scrape for .m3u links
  - filter: input filter expresion, checking for test contains in title of the M3U.
+ - max: the max number of M3U elements to test in a playlist.
 
 ### usage examples
 
@@ -41,6 +42,12 @@ _Test an M3U input(multiple files) passed from standard input._
 iptvtee --time=5 --filter=F1 http://url1.org:8000/get.php?username=x&password=x&type=m3u http://url2.org:8000/get.php?username=y&password=y&type=m3u
 ```
 _Test an M3U file for 5 seconds and filter out links with score below 1._
+
+**_Test a text file_**
+```
+iptvtee --max=5 m3u-links.txt
+```
+_Test a text file containing a list of m3u urls, check maximum 5 elements per m3u url in the text file._
 
 **_Scrape web page_**
 ```

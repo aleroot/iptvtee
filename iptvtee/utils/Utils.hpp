@@ -27,15 +27,23 @@ namespace MapExtension
 namespace FilterUtils
 {
     template <typename K, typename V>
-    std::function<bool(const std::string&)> extractFilter(const  std::unordered_map <K,V> & params) {
-        typename std::unordered_map<K,V>::const_iterator it = params.find( "filter" );
+    std::function<bool(const std::string&, const int count)> extractFilter(const  std::unordered_map <K,V> & params) {
+        int max = -1;
+        typename std::unordered_map<K,V>::const_iterator it = params.find( "max" );
+        if ( it != params.end() ) {
+            max = std::stoi((std::string)it->second);
+        }
+        
+        it = params.find( "filter" );
         if ( it == params.end() ) {
-            return [] (std::string x) -> bool { return true; };
+            return [max] (std::string x, int count) -> bool { return (max < 0 || count < max); };
         }
 
         std::string strF = (std::string)it->second;
         StringUtils::trim(strF);
-        auto filter = [strF] (std::string x) -> bool {
+        auto filter = [strF, max] (std::string x, int count) -> bool {
+            if(max >= 0 && count >= max)
+                return false;
             if(strF.empty())
                 return true;
             const std::size_t pos = strF.find("|");
@@ -89,7 +97,7 @@ namespace AppUtils
 {
     inline int usage() {
         std::cerr << "iptvtee v1.0" << std::endl << "usage:" <<std::endl;
-        std::cerr << "iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --filter=term --page=example.org] file.m3u" << std::endl;
+        std::cerr << "iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org] file.m3u" << std::endl;
         return 1;
     }
 }

@@ -63,7 +63,8 @@ int main(int argc, const char * argv[]) {
             if((rank.score * 100) >= min_score) {
                 totalRank = (run > 1 || r > 0) ? totalRank + rank : rank;
                 Report report = playlistEvaluator.report(min_score);
-                report.exportTo(std::cout, format);
+                if(params.contains("format"))
+                    report.exportTo(std::cout, format);
                 std::cerr << "Report: " << report << std::endl;
             }
         }

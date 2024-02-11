@@ -35,18 +35,18 @@ struct PlaylistItem {
 
 class Playlist {
     std::vector<PlaylistItem> entries;
-    constexpr static auto noFilter = [] (std::string x) -> bool { return true; };
+    constexpr static auto noFilter = [] (std::string x, int count) -> bool { return true; };
 public:
-    static std::vector<Playlist> extractM3U(std::string url,std::function<bool(const std::string&)> filter = noFilter);
+    static std::vector<Playlist> extractM3U(std::string url,std::function<bool(const std::string&, const int count)> filter = noFilter);
     /** Parse the m3u file from an URL or local file on disk.
      *  It can be an URL or a phisycal file on disk:
      *    - fromM3U("https://www.example.com/test.m3u")
      *    - fromM3U("/Users/user/test.m3u8")
      */
-    static Playlist fromM3U(std::string url,std::function<bool(const std::string&)> filter = noFilter);
+    static Playlist fromM3U(std::string url,std::function<bool(const std::string&, const int count)> filter = noFilter);
     /** Load an M3U from a stream.
      */
-    template<class _CharT, class _Traits> static Playlist fromM3U(std::basic_istream<_CharT, _Traits>& is, std::function<bool(const std::string&)> filter = noFilter);
+    template<class _CharT, class _Traits> static Playlist fromM3U(std::basic_istream<_CharT, _Traits>& is, std::function<bool(const std::string&, const int count)> filter = noFilter);
     Playlist() {};
     Playlist(std::vector<PlaylistItem> items);
     bool empty();
