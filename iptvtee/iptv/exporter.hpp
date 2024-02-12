@@ -21,7 +21,7 @@ struct ExportableItem {
     PlaylistItem item;
     Rank rank;
     friend std::ostream& operator<< (std::ostream &os, const ExportableItem &e) {
-        return (os << e.item << " -> " << e.rank << std::endl);
+        return (os << e.item << " -> " << e.rank);
     }
 };
 
