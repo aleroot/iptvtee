@@ -17,7 +17,7 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
 HTTPDownloader::HTTPDownloader() {
     curl = curl_easy_init();
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-    curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.79.1");
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/8.6.0");
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1); //Prevent "longjmp causes uninitialized stack frame" bug
 }
 
@@ -25,34 +25,27 @@ HTTPDownloader::~HTTPDownloader() {
     curl_easy_cleanup(curl);
 }
 
-bool HTTPDownloader::check(const std::string& url) {
-    if(curl) {
-            curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+std::optional<std::stringstream> HTTPDownloader::download(const std::string& url, std::stringstream& out) {
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_NOBODY, 0); // Ensure it performs the download
+        curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "deflate");
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
 
-            /* don't write output to stdout */
-            curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
+        /* Perform the request */
+        CURLcode res = curl_easy_perform(curl);
 
-            /* Perform the request */
-            CURLcode response = curl_easy_perform(curl);
-
-            return (response == CURLE_OK);
+        /* Check for errors */
+        if (res != CURLE_OK) {
+            return std::nullopt; // Download failed
         }
-
-        return false;
+        return std::optional<std::stringstream>(std::move(out)); // Download succeeded
+    }
+    return std::nullopt;
 }
 
-stringstream& HTTPDownloader::download(const std::string& url, stringstream& out) {
-    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curl, CURLOPT_NOBODY, 0);
-    curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "deflate");
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
-    /* Perform the request, res will get the return code */
-    CURLcode res = curl_easy_perform(curl);
-    /* Check for errors */
-    if (res != CURLE_OK) {
-        fprintf(stderr, "curl_easy_perform() failed: %s\n",
-                curl_easy_strerror(res));
-    }
-    return out;
+std::optional<std::stringstream> HTTPDownloader::download(const std::string& url) {
+    std::stringstream ss;
+    return download(url, ss);
 }

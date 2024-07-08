@@ -48,7 +48,7 @@ public:
      */
     template<class _CharT, class _Traits> static Playlist fromM3U(std::basic_istream<_CharT, _Traits>& is, std::function<bool(const std::string&, const int count)> filter = noFilter);
     Playlist() {};
-    Playlist(std::vector<PlaylistItem> items);
+    Playlist(const std::vector<PlaylistItem> items);
     bool empty();
     size_t size();
     PlaylistItem& operator[](int idx);

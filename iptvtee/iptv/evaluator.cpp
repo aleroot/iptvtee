@@ -15,7 +15,7 @@ Rank Evaluator::evaluate() {
     auto max = timeout.count();
     if(max <= 0)
         return Rank { .elements = 1, .score = static_cast<float>(max), .value = max, .max_value = max};
-    auto vlc_instance = VLC::Instance(0, nullptr);
+    static const auto vlc_instance = VLC::Instance(0, nullptr);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
     auto mp = VLC::MediaPlayer(media);
     mp.setMute(true);
@@ -40,5 +40,10 @@ long long Evaluator::waitFor(std::chrono::milliseconds time, std::function<bool(
 
 void Evaluator::preSettings() {
     setenv("VLC_VERBOSE","-1",0); //Remove VLC logs to stdout, does not overwrite
-    //setenv("VLC_PLUGIN_PATH","/Applications/VLC.app/Contents/MacOS/plugins",0); //Needed to avoid: std::runtime_error: Wrapping a nullptr instance
+    //Setting the VLC_PLUGIN_PATH environment variable is needed to avoid: std::runtime_error: Wrapping a nullptr instance
+#ifdef __APPLE__
+    if (getenv("VLC_PLUGIN_PATH") == nullptr) {
+        setenv("VLC_PLUGIN_PATH", "/Applications/VLC.app/Contents/MacOS/plugins", 0);
+    }
+#endif
 }

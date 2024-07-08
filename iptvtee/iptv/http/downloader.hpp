@@ -14,6 +14,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <optional>
 /**
  * A non-threadsafe simple libcURL-easy based HTTP downloader
  */
@@ -24,10 +25,10 @@ public:
     /**
      * Download a file using HTTP GET and store in in a std::string
      * @param url The URL to download
-     * @return The download result
+     * @return an optinal downloaded content, if download succeeded 
      */
-    std::stringstream& download(const std::string& url, std::stringstream& out);
-    bool check(const std::string& url);
+    std::optional<std::stringstream> download(const std::string& url);
+    std::optional<std::stringstream> download(const std::string& url, std::stringstream& out);
 private:
     void* curl;
 };

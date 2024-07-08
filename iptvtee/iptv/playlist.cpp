@@ -73,7 +73,7 @@ std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(co
         downloader.download(url, page);
     }
     
-    std::regex url_regex ("\"(?:https?://[^\"]+)?(https?://[^\"]+m3u8?)\"");
+    static const std::regex url_regex ("\"(?:https?://[^\"]+)?(https?://[^\"]+m3u8?)\"");
     std::string line;
     while (std::getline(page, line)) {
         std::smatch m;
@@ -91,10 +91,10 @@ Playlist Playlist::fromM3U(std::string url,std::function<bool(const std::string&
     StringUtils::trim(url);
     if(url.size() > 0) {
         HTTPDownloader downloader;
-        if(downloader.check(url)) {
-            std::stringstream content;
+        auto downloaded = downloader.download(url);
+        if(downloaded) {
             try {
-                Playlist playlist = fromM3U(downloader.download(url, content), filter);
+                Playlist playlist = fromM3U(downloaded.value(), filter);
                 if(playlist.size() < 1)
                     playlist.entries.push_back(PlaylistItem{.url = url});
                 return playlist;
@@ -137,22 +137,22 @@ template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istr
                 StringUtils::trim(urlLine);
                 if(urlLine.length() < 5 || urlLine.starts_with("#"))
                     continue; //something wrong here, discard the item.
-                item.url = urlLine;
+                item.url = std::move(urlLine);
             }
-            if(filter(item.text, (int)list.size()))
+            if(filter(item.text, static_cast<int>(list.size())))
                 list.push_back(item);
         } else if (line.size() > 3 && !line.starts_with("#") && !parsingM3U) {
             //It is not a valid M3U --> check if it's a URL or file...
-            Playlist pl = fromM3U(line,filter);
-            if(pl.size() > 0)
-                list.insert(list.end(), pl.entries.begin(), pl.entries.end());
+            Playlist pl = fromM3U(line, filter);
+            if (!pl.empty())
+                list.insert(list.end(), std::make_move_iterator(pl.entries.begin()), std::make_move_iterator(pl.entries.end()));
         }
     }
     
     return list.empty() ? Playlist() : Playlist(list);
 }
 
-Playlist::Playlist(std::vector<PlaylistItem> items) : entries(items) {}
+Playlist::Playlist(const std::vector<PlaylistItem> items) : entries(items) {}
 
 size_t Playlist::size() {
     return entries.size();
@@ -166,7 +166,10 @@ void Playlist::load(Playlist other) {
     entries.insert(entries.end(), other.entries.begin(), other.entries.end());
 }
 
-PlaylistItem& Playlist::operator[](int idx)
-{
+PlaylistItem& Playlist::operator[](int idx) {
+    if (idx < 0 || idx >= static_cast<int>(entries.size())) {
+        throw std::out_of_range("Index out of bounds");
+    }
     return entries[idx];
 }
+
