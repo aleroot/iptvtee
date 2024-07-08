@@ -45,4 +45,44 @@
     XCTAssertEqual("#EXTM3U", lines[0]);
 }
 
+- (void)testSimpleURLWriterAddRow {
+    std::stringstream str_strm;
+    Exporters::URLWriter urlWriter(str_strm);
+    PlaylistItem pl { .url = "http://iptvserver.tv/kkkr/1", .text = "BBC" };
+    ExportableItem itm { .item = pl };
+    XCTAssertTrue(urlWriter.addRow(itm));
+    const std::string line = str_strm.str();
+    XCTAssertEqual(line, "http://iptvserver.tv/kkkr/1\n");
+}
+
+- (void)testSimpleURLWriterMultipleRows {
+    std::stringstream str_strm;
+    Exporters::URLWriter urlWriter(str_strm);
+    
+    PlaylistItem pl1 { .url = "http://iptvserver.tv/kkkr/1", .text = "BBC" };
+    PlaylistItem pl2 { .url = "http://iptvserver.tv/kkkr/2", .text = "CNN" };
+    ExportableItem itm1 { .item = pl1 };
+    ExportableItem itm2 { .item = pl2 };
+    
+    XCTAssertTrue(urlWriter.addRow(itm1));
+    XCTAssertTrue(urlWriter.addRow(itm2));
+    
+    const std::string output = str_strm.str();
+    std::vector<std::string> lines = StringUtils::split(output, std::regex { "\\n" });
+    
+    XCTAssertEqual(2, lines.size()); 
+    XCTAssertEqual("http://iptvserver.tv/kkkr/1", lines[0]);
+    XCTAssertEqual("http://iptvserver.tv/kkkr/2", lines[1]);
+}
+
+- (void)testSimpleURLWriterEmptyURL {
+    std::stringstream str_strm;
+    Exporters::URLWriter urlWriter(str_strm);
+    PlaylistItem pl { .url = "", .text = "Empty URL" };
+    ExportableItem itm { .item = pl };
+    XCTAssertFalse(urlWriter.addRow(itm));
+    const std::string line = str_strm.str();
+    XCTAssertEqual(line, "");
+}
+
 @end

@@ -10,10 +10,12 @@
 #include <thread>
 #include <algorithm>
 
-Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_concurrent) : items(list) {
-    if(max_concurrent <= 0)
-        max_concurrent = std::thread::hardware_concurrency();
-    max_concurrent_analisys = max_concurrent;
+Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_concurrent) : items(list),
+    max_concurrent_analisys(max_concurrent > 0 ? max_concurrent : std::thread::hardware_concurrency())
+{
+    if(items.empty())
+        throw std::runtime_error("Playlist to analyse is empty!");
+        
     if(max_concurrent_analisys <= 0)
         max_concurrent_analisys = 1;
     
@@ -34,15 +36,18 @@ Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_co
             }
             
             int count = 0;
-            std::vector<bool> completed(len);
+            std::vector<std::atomic<bool>> completed(len);
             do {
                 for(int i = 0; i < len; i++) {
                     if(!completed[i]) {
                         std::future_status status = batch[i].wait_for(std::chrono::milliseconds(100));
                         if(status == std::future_status::ready) {
                             const Rank rank = batch[i].get();
-                            work_result.push_back(rank);
-                            completed[i] = true;
+                            {
+                                std::lock_guard<std::mutex> lock(result_mutex);
+                                work_result.push_back(rank);
+                                completed[i] = true;
+                            }
                             count++;
                         }
                     }
@@ -55,9 +60,16 @@ Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_co
     );
 }
 
+Analyzer::~Analyzer() {
+    if (work_producer.valid()) {
+        work_producer.wait();
+    }
+};
+
 Rank Analyzer::calc_total() {
-    static const int first = 0;
+    static constexpr int first = 0;
     Rank total;
+    std::lock_guard<std::mutex> lock(result_mutex);
     if(work_result.size() > first) {
         total.value = work_result[first].value;
         total.elements = work_result[first].elements;

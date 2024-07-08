@@ -13,6 +13,8 @@
 Rank Evaluator::evaluate() {
     const std::chrono::milliseconds timeout = std::chrono::duration_cast<std::chrono::milliseconds>(evaluation_timeout);
     auto max = timeout.count();
+    if(max <= 0)
+        return Rank { .elements = 1, .score = static_cast<float>(max), .value = max, .max_value = max};
     auto vlc_instance = VLC::Instance(0, nullptr);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
     auto mp = VLC::MediaPlayer(media);

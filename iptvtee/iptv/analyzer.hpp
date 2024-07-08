@@ -24,10 +24,11 @@ class Analyzer : public virtual Evaluable {
     std::future<Rank> work_producer;
     Rank calc_total();
     std::atomic<bool> result_ready = false;
+    std::mutex result_mutex;
 public:
     explicit Analyzer(Playlist list, std::chrono::seconds eval_max_time = 30s, int max_concurrent = -1);
     explicit Analyzer(std::string url) : Analyzer(Playlist::fromM3U(url)) {};
-    virtual ~Analyzer() {};
+    virtual ~Analyzer();
     virtual Rank evaluate() override;
     std::vector<Rank>::iterator begin();
     std::vector<Rank>::iterator end();

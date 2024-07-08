@@ -7,6 +7,30 @@
 
 #include "exporter.hpp"
 
+Exporters::TXTWriter::TXTWriter(std::ostream& file) : file(file) {
+    // No header needed for this simple format
+}
+
+bool Exporters::TXTWriter::addRow(const ExportableItem& row) {
+    if (row.item.url.empty()) {
+        return false;
+    }
+    
+    file << row.item.url << " -> " << row.item.name << std::endl;
+    return true;
+}
+
+Exporters::URLWriter::URLWriter(std::ostream& file) : file(file) { }
+
+bool Exporters::URLWriter::addRow(const ExportableItem& row) {
+    if (row.item.url.empty()) {
+        return false;
+    }
+    
+    file << row.item.url << std::endl;
+    return true;
+}
+
 int Exporters::CSVWriter::count() {
     return linesCount;
 }

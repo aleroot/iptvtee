@@ -75,7 +75,9 @@ namespace ReportUtils
 
     inline Format toFormat(std::string strFormat) {
         StringUtils::trim(strFormat);
-        std::map<std::string, Format> mappings = {{"CSV", Format::CSV},
+        std::map<std::string, Format> mappings = {{"TXT", Format::TXT},
+                                                  {"URL", Format::URL},
+                                                  {"CSV", Format::CSV},
                                                   {"JSON", Format::JSON},
                                                   {"M3U", Format::M3U}};
         
@@ -97,7 +99,7 @@ namespace AppUtils
 {
     inline int usage() {
         std::cerr << "iptvtee v1.0" << std::endl << "usage:" <<std::endl;
-        std::cerr << "iptvtee [--format=json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org] file.m3u" << std::endl;
+        std::cerr << "iptvtee [--format=txt|json|csv|m3u|url --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org] file.m3u" << std::endl;
         return 1;
     }
 }

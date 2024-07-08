@@ -27,6 +27,22 @@ struct ExportableItem {
 
 namespace Exporters {
 
+    class TXTWriter
+    {
+        std::ostream& file;
+    public:
+        explicit TXTWriter(std::ostream& file);
+        bool addRow(const ExportableItem& row);
+    };
+
+    class URLWriter
+    {
+        std::ostream& file;
+    public:
+        explicit URLWriter(std::ostream& file);
+        bool addRow(const ExportableItem& row);
+    };
+
     class CSVWriter
     {
         std::ostream& file;

@@ -68,6 +68,22 @@ bool Report::exportTo(std::ostream& outFile, Format fmt) const {
                     return false;
             return true;
         }
+        case Format::URL:
+        {
+            Exporters::URLWriter url(outFile);
+            for(ExportableItem item : entries)
+                if(!url.addRow(item))
+                    return false;
+            return true;
+        }
+        default:
+        {
+            Exporters::TXTWriter txt(outFile);
+            for(ExportableItem item : entries)
+                if(!txt.addRow(item))
+                    return false;
+            return true;
+        }
     }
     
     return false;
