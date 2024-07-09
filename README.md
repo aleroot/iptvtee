@@ -57,23 +57,23 @@ _Scrape all m3u links from a web page and try to test them all for 5 seconds, ou
 
 ### Filter
 
-The `--filter` option allows you to selectively test streams based on the content of PlaylistItem fields. This feature is particularly useful for targeting specific groups, channels, or content types within large playlists.
+The `--filter` option allows you to selectively test streams based on the content of fields. This feature is particularly useful for targeting specific groups, channels, or content types within large playlists.
 
 #### Filter Syntax
 
-The filter option accepts expressions to match against fields. The basic syntax is: `--filter="field:value"`, where `field` can be any of the following attributes:name,text,group,logo,url
+The filter option accepts expressions to match against fields. The basic syntax is: `--filter="field=value"`, where `field` can be any of the following attributes:name,text,group,logo,url
 
 #### Filter Behavior
 
 - Filters are case-sensitive.
-- Partial matches are allowed. For example, `--filter="name:Sport"` will match items with names like "Sports Channel" or "Motorsport".
+- Partial matches are allowed. For example, `--filter="name=Sport"` will match items with names like "Sports Channel" or "Motorsport".
 - If multiple filters are specified, all conditions must be met (AND logic).
-- When no field is specified (e.g., `--filter="F1"`), the filter checks against all string fields of the PlaylistItem.
+- When no field is specified (e.g., `--filter="Blah"`), the filter checks against default text field.
 
 #### Examples
 
-1. Test only sports channels: `iptvtee --filter="group:Sports" playlist.m3u`
-2. Test channels with "HD" in their name: `iptvtee --filter="name:HD" playlist.m3u`
+1. Test only sports channels: `iptvtee --filter="group=Sports" playlist.m3u`
+2. Test channels with "HD" in their name: `iptvtee --filter="name=HD" playlist.m3u`
 
 
 ### Configuration
