@@ -8,7 +8,7 @@
 #include "playlist.hpp"
 #include "StringUtils.hpp"
 #include "http/downloader.hpp"
-#include <map>
+#include <unordered_map>
 #include <stdexcept>
 #include <sstream>
 #include <regex>
@@ -18,7 +18,7 @@
 class PlaylistLine {
     std::string line;
     std::string desc;
-    std::map<std::string, std::string> descriptors;
+    std::unordered_map<std::string, std::string> descriptors;
     void parse() {
         //parse #EXTINF line into descriptors if possible
         int lastComma = 0;
@@ -70,7 +70,9 @@ std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(co
         file.close();
     } else {
         HTTPDownloader downloader;
-        downloader.download(url, page);
+        auto downloaded = downloader.download(url, page);
+        if(downloaded.has_value())
+            page.str(downloaded.value().str());
     }
     
     static const std::regex url_regex ("\"(?:https?://[^\"]+)?(https?://[^\"]+m3u8?)\"");
@@ -152,7 +154,7 @@ template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istr
     return list.empty() ? Playlist() : Playlist(list);
 }
 
-Playlist::Playlist(const std::vector<PlaylistItem> items) : entries(items) {}
+Playlist::Playlist(const std::vector<PlaylistItem> items) : entries(std::move(items)) {}
 
 size_t Playlist::size() {
     return entries.size();
