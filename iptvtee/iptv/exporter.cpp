@@ -15,8 +15,10 @@ bool Exporters::TXTWriter::addRow(const ExportableItem& row) {
     if (row.item.url.empty()) {
         return false;
     }
-    
-    file << row.item.url << " -> " << row.item.name << std::endl;
+    std::string description = row.item.name.empty() ? row.item.text : row.item.name;
+    if(description.empty())
+        return false;
+    file << row.item.url << " -> " << description << std::endl;
     return true;
 }
 
@@ -88,3 +90,4 @@ bool Exporters::M3UWriter::addRow(ExportableItem row) {
     file << row.item.url << std::endl;
     return true;
 }
+
