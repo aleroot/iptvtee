@@ -8,16 +8,16 @@ iptvtee is a small utility to check quality of M3U streams.
 ```
 ### Parameters descritpion 
 
- - format: export format printed out on stdout
- - jobs: number of concurrent iptv flows runned concurrenlty
- - time: reference time for playback of the flow(default: 60 seconds)
- - runs: number of repeated runs of the test playback(default: 1 run)
- - score: minimum score of the flow. tested flow under this minimum are filtered out from the result.
- - page: an HTML url page to scrape for .m3u links
- - filter: input filter expresion, checking for test contains in title of the M3U.
- - max: the max number of M3U elements to test in a playlist.
+ - **format**: export format printed out on stdout
+ - **jobs**: number of concurrent iptv flows runned concurrenlty
+ - **time**: reference time for playback of the flow(default: 60 seconds)
+ - **runs**: number of repeated runs of the test playback(default: 1 run)
+ - **score**: minimum score of the flow. tested flow under this minimum are filtered out from the result.
+ - **page**: an HTML url page to scrape for .m3u links
+ - **filter**: input filter expresion, checking for test contains a field of the M3U item.
+ - **max**: the max number of M3U elements to test in a playlist.
 
-### usage examples
+### Usage Examples
 
 **_Test m3u file_**
 ```
@@ -55,7 +55,28 @@ iptvtee --page=https://example.com/page.html --format=json --time=5
 ```
 _Scrape all m3u links from a web page and try to test them all for 5 seconds, output in JSON format._
 
-### configuration
+### Filter
+
+The `--filter` option allows you to selectively test streams based on the content of PlaylistItem fields. This feature is particularly useful for targeting specific groups, channels, or content types within large playlists.
+
+#### Filter Syntax
+
+The filter option accepts expressions to match against fields. The basic syntax is: `--filter="field:value"`, where `field` can be any of the following attributes:name,text,group,logo,url
+
+#### Filter Behavior
+
+- Filters are case-sensitive.
+- Partial matches are allowed. For example, `--filter="name:Sport"` will match items with names like "Sports Channel" or "Motorsport".
+- If multiple filters are specified, all conditions must be met (AND logic).
+- When no field is specified (e.g., `--filter="F1"`), the filter checks against all string fields of the PlaylistItem.
+
+#### Examples
+
+1. Test only sports channels: `iptvtee --filter="group:Sports" playlist.m3u`
+2. Test channels with "HD" in their name: `iptvtee --filter="name:HD" playlist.m3u`
+
+
+### Configuration
 
 The application is using vlcpp library to access an instance of VLC, so in order to be able to run the application correclty the `VLC_PLUGIN_PATH` environment variable must be set and point to the path of VLC plugins.
 On MacOs the VLC plugins path is usually: `/Applications/VLC.app/Contents/MacOS/plugins`, so the variable should be set in this way: `VLC_PLUGIN_PATH=/Applications/VLC.app/Contents/MacOS/plugins`.

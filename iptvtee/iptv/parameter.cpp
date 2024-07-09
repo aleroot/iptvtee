@@ -43,8 +43,8 @@ const std::string Parameters::pop(std::string param) {
     return result;
 }
 
-std::function<bool(const std::string&, const int count)> Parameters::filter() {
-    static std::function<bool (const std::string &, const int count)> result = FilterUtils::extractFilter(params);
+std::function<bool(const PlaylistItem&, const int count)> Parameters::filter() {
+    static std::function<bool (const PlaylistItem &, const int count)> result = FilterUtils::extractFilter(params);
     return result;
 }
 

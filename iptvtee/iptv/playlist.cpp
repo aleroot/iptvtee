@@ -60,7 +60,7 @@ public:
     }
 };
 
-std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(const std::string&, const int count)> filter) {
+std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(const PlaylistItem&, const int count)> filter) {
     std::vector<Playlist> result;
     
     std::stringstream page;
@@ -87,7 +87,7 @@ std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(co
     return result;
 }
 
-Playlist Playlist::fromM3U(std::string url,std::function<bool(const std::string&, const int count)> filter) {
+Playlist Playlist::fromM3U(std::string url,std::function<bool(const PlaylistItem&, const int count)> filter) {
     StringUtils::trim(url);
     if(url.size() > 0) {
         HTTPDownloader downloader;
@@ -116,7 +116,7 @@ Playlist Playlist::fromM3U(std::string url,std::function<bool(const std::string&
     throw std::invalid_argument("Given url:" + url + " not parsable!");
 }
 
-template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istream<_CharT, _Traits> &is,std::function<bool(const std::string&, const int count)> filter) {
+template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istream<_CharT, _Traits> &is,std::function<bool(const PlaylistItem&, const int count)> filter) {
     std::vector<PlaylistItem> list;
     bool parsingM3U = false;
     std::string line;
@@ -139,7 +139,7 @@ template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istr
                     continue; //something wrong here, discard the item.
                 item.url = std::move(urlLine);
             }
-            if(filter(item.text, static_cast<int>(list.size())))
+            if(filter(item, static_cast<int>(list.size())))
                 list.push_back(item);
         } else if (line.size() > 3 && !line.starts_with("#") && !parsingM3U) {
             //It is not a valid M3U --> check if it's a URL or file...

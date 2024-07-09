@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <map>
 #include "StringUtils.hpp"
+#include "Playlist.hpp"
 namespace MapExtension
 {
     template <typename K, typename V>
@@ -27,7 +28,7 @@ namespace MapExtension
 namespace FilterUtils
 {
     template <typename K, typename V>
-    std::function<bool(const std::string&, const int count)> extractFilter(const  std::unordered_map <K,V> & params) {
+    std::function<bool(const PlaylistItem&, const int count)> extractFilter(const  std::unordered_map <K,V> & params) {
         int max = -1;
         typename std::unordered_map<K,V>::const_iterator it = params.find( "max" );
         if ( it != params.end() ) {
@@ -36,27 +37,34 @@ namespace FilterUtils
         
         it = params.find( "filter" );
         if ( it == params.end() ) {
-            return [max] (std::string x, int count) -> bool { return (max < 0 || count < max); };
+            return [max] (PlaylistItem x, int count) -> bool { return (max < 0 || count < max); };
         }
 
-        std::string strF = (std::string)it->second;
-        StringUtils::trim(strF);
-        auto filter = [strF, max] (std::string x, int count) -> bool {
+        std::string strI = (std::string)it->second;
+        StringUtils::trim(strI);
+        auto filter = [strI, max] (PlaylistItem item, int count) -> bool {
             if(max >= 0 && count >= max)
                 return false;
-            if(strF.empty())
+            if(strI.empty())
                 return true;
+            std::string strF = strI;
+            
+            const std::string x = item.by(StringUtils::extractPrefixAndStrip(strF));
             const std::size_t pos = strF.find("|");
             const std::vector<std::string> andParts = StringUtils::split(strF.substr(0, pos), std::regex{"[\\&\\s]+"});
             bool result = !andParts.empty();
             for(std::string a : andParts) {
                 StringUtils::trim(a);
-                result &= StringUtils::contains(x, a);
+                std::optional<std::string> opt = StringUtils::extractPrefixAndStrip(a);
+                const std::string ax = opt.has_value() ? item.by(opt) : x;
+                result &= StringUtils::contains(ax, a);
             }
             
             if(pos != std::string::npos) {
                 for(std::string a : StringUtils::split(strF.substr(pos), std::regex{"[\\|\\s]+"})) {
                     StringUtils::trim(a);
+                    std::optional<std::string> opt = StringUtils::extractPrefixAndStrip(a);
+                    const std::string ax = opt.has_value() ? item.by(opt) : x;
                     if(!a.empty())
                         result |= StringUtils::contains(x, a);
                 }

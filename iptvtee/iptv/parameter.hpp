@@ -11,6 +11,7 @@
 #include <vector>
 #include <functional>
 #include <unordered_map>
+#include "playlist.hpp"
 
 class Parameters final {
 public:
@@ -19,7 +20,7 @@ public:
     const std::string get(std::string param, std::string defVal = "");
     const std::string pop(std::string param);
     bool contains(std::string param);
-    std::function<bool(const std::string&, const int count)> filter();
+    std::function<bool(const PlaylistItem&, const int count)> filter();
     std::vector<std::string> files;
     void operator=(Parameters const&) = delete;
 private:

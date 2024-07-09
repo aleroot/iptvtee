@@ -53,4 +53,48 @@ using namespace std;
     XCTAssertEqual(v.size(), andParts.size());
 }
 
+- (void)testExtractPrefixAndStripBasic {
+    std::string input = "key=value";
+    auto result = StringUtils::extractPrefixAndStrip(input);
+    
+    XCTAssertTrue(result.has_value());
+    XCTAssertEqual("key", result.value());
+    XCTAssertEqual("value", input);
+}
+
+- (void)testExtractPrefixAndStripNoEquals {
+    std::string input = "justAString";
+    auto result = StringUtils::extractPrefixAndStrip(input);
+    
+    XCTAssertFalse(result.has_value());
+    XCTAssertEqual("justAString", input);
+}
+
+- (void)testExtractPrefixAndStripEmptyPrefix {
+    std::string input = "=value";
+    auto result = StringUtils::extractPrefixAndStrip(input);
+    
+    XCTAssertTrue(result.has_value());
+    XCTAssertEqual("", result.value());
+    XCTAssertEqual("value", input);
+}
+
+- (void)testExtractPrefixAndStripEmptyValue {
+    std::string input = "key=";
+    auto result = StringUtils::extractPrefixAndStrip(input);
+    
+    XCTAssertTrue(result.has_value());
+    XCTAssertEqual("key", result.value());
+    XCTAssertEqual("", input);
+}
+
+- (void)testExtractPrefixAndStripMultipleEquals {
+    std::string input = "key=value=more";
+    auto result = StringUtils::extractPrefixAndStrip(input);
+    
+    XCTAssertTrue(result.has_value());
+    XCTAssertEqual("key", result.value());
+    XCTAssertEqual("value=more", input);
+}
+
 @end
