@@ -16,6 +16,7 @@ iptvtee is a small utility to check quality of M3U streams.
  - **page**: an HTML url page to scrape for .m3u links
  - **filter**: input filter expresion, checking for test contains a field of the M3U item.
  - **max**: the max number of M3U elements to test in a playlist.
+ - **server**: the optional username and password separated by a colon, used to start the app in server mode.
 
 ### Usage Examples
 
@@ -75,6 +76,24 @@ The filter option accepts expressions to match against fields. The basic syntax 
 1. Test only sports channels: `iptvtee --filter="group=Sports" playlist.m3u`
 2. Test channels with "HD" in their name: `iptvtee --filter="name=HD" playlist.m3u`
 
+### Server mode
+
+The `--server` option start set the app running in server mode waiting for HTTP API requests.
+
+#### Endpoints
+
+- `/analyse` to evaluate a specific url, accepts all the parameters the app would take from the command line, except for: `page` and `server`
+
+#### Examples
+
+If the server parameter is set like: `--server=admin:password123`, then an M3U URL can be analyzed with the following curl client request:
+
+```
+curl -X POST -u admin:password123 -d "format=csv&url=http%3A%2F%2Fdomain.com%2Ffile.m3u" http://localhost:8080/analyse
+```
+
+When the server is running, it will listen for incoming HTTP POST requests on port `8080`. The requests must include proper authentication credentials and the necessary parameters. The server processes the requests, evaluates the provided M3U URLs according to the specified parameters, and returns the results in the requested format (e.g., CSV, JSON).
+In order to set the default port from 8080 to something else, it is necessary to set `IPTVTEE_PORT` environment variable to the wanted port, the same for the listening interface, by default the applitcation is listening on all the interfaces(`0.0.0.0`), but setting `IPTVTEE_HOST` environment variable it is possible to change the listening address to `localhost` or to some other ip.
 
 ### Configuration
 
@@ -104,7 +123,7 @@ In case the compiler and/or linker complain about some missing path, you need to
 ### Dependencies
 The two main dependencies are libcurl and libVLC.
 
-## Build
+## Tests
 
 The unit tests are objective-c++ unit tests that can be run within the XCode IDE or with `xcodebuild`. 
 

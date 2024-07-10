@@ -107,7 +107,7 @@ namespace AppUtils
 {
     inline int usage() {
         std::cerr << "iptvtee v1.0" << std::endl << "usage:" <<std::endl;
-        std::cerr << "iptvtee [--format=txt|json|csv|m3u|url --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org] file.m3u" << std::endl;
+        std::cerr << "iptvtee [--format=txt|json|csv|m3u|url --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org --server] file.m3u" << std::endl;
         return 1;
     }
 }

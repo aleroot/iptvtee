@@ -9,6 +9,12 @@
 #include "FileUtils.hpp"
 #include "Utils.hpp"
 
+Parameters Parameters::from(const std::multimap<std::string, std::string>& map) {
+    Parameters params;
+    params.load(map);
+    return params;
+}
+
 Parameters Parameters::from(int argc, const char * argv[]) {
     Parameters params;
     for (int i = 1; i < argc; ++i) {
@@ -27,6 +33,17 @@ Parameters Parameters::from(int argc, const char * argv[]) {
             params.files.push_back(file);
     }
     return params;
+}
+
+Parameters* Parameters::load(const std::multimap<std::string, std::string>& map) {
+    for (const auto& [key, value] : map) {
+        if (key == "file" || key == "url") {
+            files.push_back(value);
+        } else {
+            params[key] = value;
+        }
+    }
+    return this;
 }
 
 const std::string Parameters::get(std::string param, std::string defVal) {

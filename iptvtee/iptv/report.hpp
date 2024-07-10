@@ -16,6 +16,7 @@ class Report {
     std::vector<ExportableItem> entries;
 public:
     Report(Playlist items, std::vector<Rank> ranks);
+    static std::string mime(Format fmt);
     bool exportTo(std::ostream& outFile, Format fmt = Format::M3U) const;
     friend std::ostream& operator<< (std::ostream& os, const Report& r)  {
         os << std::endl;

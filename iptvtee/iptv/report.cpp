@@ -88,3 +88,14 @@ bool Report::exportTo(std::ostream& outFile, Format fmt) const {
     
     return false;
 }
+
+std::string Report::mime(Format fmt) {
+    switch(fmt) {
+        case Format::TXT: return "text/plain";
+        case Format::URL: return "text/uri-list";
+        case Format::CSV: return "text/csv";
+        case Format::JSON: return "application/json";
+        case Format::M3U: return "application/vnd.apple.mpegurl";
+        default: return "application/octet-stream";
+    }
+}

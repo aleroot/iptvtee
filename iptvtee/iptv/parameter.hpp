@@ -11,11 +11,14 @@
 #include <vector>
 #include <functional>
 #include <unordered_map>
+#include <map>
 #include "playlist.hpp"
 
 class Parameters final {
 public:
     static Parameters from(int argc, const char * argv[]);
+    static Parameters from(const std::multimap<std::string, std::string>& map);
+    Parameters* load(const std::multimap<std::string, std::string>& map);
     std::string& operator[](std::string p);
     const std::string get(std::string param, std::string defVal = "");
     const std::string pop(std::string param);

@@ -8,6 +8,7 @@
 #include "iptv/analyzer.hpp"
 #include "iptv/parameter.hpp"
 #include "utils/Utils.hpp"
+#include "iptv/http/server.hpp"
 #include <fcntl.h>
 #include <iostream>
 
@@ -71,5 +72,11 @@ int main(int argc, const char * argv[]) {
     } while (totalRuns < run++);
     
     std::cerr << "Total Rank: " << totalRank << std::endl;
+    
+    if(params.contains("server")) {
+        HTTPServer server(params);
+        server.run();
+    }
+    
     return 0;
 }
