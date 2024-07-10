@@ -92,10 +92,25 @@ public:
      * Player should be created.
      */
     MediaPlayer( const Instance& instance )
-        : Internal{ libvlc_media_player_new( instance ), libvlc_media_player_release }
+        : Internal{ libvlc_media_player_new( getInternalPtr<libvlc_instance_t>( instance ) ),
+                    libvlc_media_player_release }
     {
     }
 
+#if LIBVLC_VERSION_INT >= LIBVLC_VERSION(4, 0, 0, 0)
+    /**
+     * Create a Media Player object from a Media
+     *
+     * \param p_md  the media. Afterwards the p_md can be safely destroyed.
+     */
+    MediaPlayer( const Instance& inst, Media& md )
+        : Internal{ libvlc_media_player_new_from_media(
+                        getInternalPtr<libvlc_instance_t>( inst ),
+                        getInternalPtr<libvlc_media_t>( md ) ),
+                    libvlc_media_player_release }
+    {
+    }
+#else
     /**
      * Create a Media Player object from a Media
      *
@@ -107,7 +122,7 @@ public:
                     libvlc_media_player_release }
     {
     }
-
+#endif
     /**
      * Create an empty VLC MediaPlayer instance.
      *
@@ -1017,7 +1032,6 @@ public:
     {
         return libvlc_audio_set_track(*this, i_track) == 0;
     }
-#endif
 
     /**
      * Get current audio channel.
@@ -1042,6 +1056,47 @@ public:
     {
         return libvlc_audio_set_channel(*this, channel) == 0;
     }
+#else // libvlc 4.0
+    /**
+     * Get current audio stereo mode.
+     *
+     * \return the audio stereo mode
+     */
+    libvlc_audio_output_stereomode_t stereoMode()
+    {
+        return libvlc_audio_get_stereomode(*this);
+    }
+
+    /**
+     * Set current audio stereo mode.
+     *
+     * \param mode the audio stereo mode
+     */
+    bool setStereoMode(libvlc_audio_output_stereomode_t mode)
+    {
+        return libvlc_audio_set_stereomode(*this, mode) == 0;
+    }
+
+    /**
+     * Get current audio mix mode.
+     *
+     * \return the audio mix mode
+     */
+    libvlc_audio_output_mixmode_t mixMode()
+    {
+        return libvlc_audio_get_mixmode(*this);
+    }
+
+    /**
+     * Set current audio mix mode.
+     *
+     * \param mode the audio mix mode
+     */
+    bool setMixMode(libvlc_audio_output_mixmode_t mode)
+    {
+        return libvlc_audio_set_mixmode(*this, mode) == 0;
+    }
+#endif // libvlc 4.0
 
     /**
      * Get current audio delay.
@@ -1857,12 +1912,13 @@ public:
 
 #if LIBVLC_VERSION_INT >= LIBVLC_VERSION(4, 0, 0, 0)
 
-    std::vector<MediaTrack> tracks( MediaTrack::Type type )
+    std::vector<MediaTrack> tracks( MediaTrack::Type type, bool selected )
     {
         using TrackListPtr = std::unique_ptr<libvlc_media_tracklist_t,
                                 decltype(&libvlc_media_tracklist_delete)>;
         TrackListPtr trackList{ libvlc_media_player_get_tracklist( *this,
-                                    static_cast<libvlc_track_type_t>( type ) ),
+                                    static_cast<libvlc_track_type_t>( type ),
+                                    selected ),
                                 &libvlc_media_tracklist_delete };
         if ( trackList == nullptr )
             return {};
