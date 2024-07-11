@@ -83,7 +83,7 @@ HTTPServer::HTTPServer(Parameters p) : params(p) {
         Rank totalRank;
         do {
             for(int r = 0; r < iptv_lists.size(); r++) {
-                Analyzer playlistEvaluator(iptv_lists[r],std::chrono::seconds(std::stoi(params.get("time", "60"))), std::stoi(params.get("jobs", "-1")));
+                Analyzer playlistEvaluator(iptv_lists[r],std::chrono::seconds(std::stoi(params.get("time", "60"))), std::stoi(params.get("jobs", "-1")), params.map("vlc-parameters"));
                 Rank rank = playlistEvaluator.evaluate();
                 if((rank.score * 100) >= min_score) {
                     totalRank = (run > 1 || r > 0) ? totalRank + rank : rank;

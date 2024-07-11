@@ -25,8 +25,9 @@ class Analyzer : public virtual Evaluable {
     Rank calc_total();
     std::atomic<bool> result_ready = false;
     std::mutex result_mutex;
+    std::unordered_map<std::string, std::string> options;
 public:
-    explicit Analyzer(Playlist list, std::chrono::seconds eval_max_time = 30s, int max_concurrent = -1);
+    explicit Analyzer(Playlist list, std::chrono::seconds eval_max_time = 30s, int max_concurrent = -1, std::unordered_map<std::string, std::string> opt = {});
     explicit Analyzer(std::string url) : Analyzer(Playlist::fromM3U(url)) {};
     virtual ~Analyzer();
     virtual Rank evaluate() override;

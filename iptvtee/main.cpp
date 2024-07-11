@@ -57,9 +57,10 @@ int main(int argc, const char * argv[]) {
     //Processing evaluation...
     int run = 1;
     Rank totalRank;
+    const std::unordered_map<std::string, std::string> vlcOptions = params.map("vlc-parameters");
     do {
         for(int r = 0; r < iptv_lists.size(); r++) {
-            Analyzer playlistEvaluator(iptv_lists[r],std::chrono::seconds(max_secs), max_jobs);
+            Analyzer playlistEvaluator(iptv_lists[r],std::chrono::seconds(max_secs), max_jobs, vlcOptions);
             Rank rank = playlistEvaluator.evaluate();
             if((rank.score * 100) >= min_score) {
                 totalRank = (run > 1 || r > 0) ? totalRank + rank : rank;

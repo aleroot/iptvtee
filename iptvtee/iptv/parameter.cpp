@@ -50,6 +50,20 @@ const std::string Parameters::get(std::string param, std::string defVal) {
     return MapExtension::GetOrDefault(params, param, defVal);
 }
 
+const std::unordered_map<std::string, std::string> Parameters::map(std::string param) {
+    const std::string input = get(param);
+    std::unordered_map<std::string, std::string> result;
+    std::istringstream iss(input);
+        std::string token;
+        while (std::getline(iss, token, ',')) {
+            size_t pos = token.find('=');
+            if (pos != std::string::npos) {
+                result[token.substr(0, pos)] = token.substr(pos + 1);
+            }
+        }
+    return result;
+}
+
 const std::string Parameters::pop(std::string param) {
     std::string result{};
     auto got = params.find (param);

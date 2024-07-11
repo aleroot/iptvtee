@@ -17,6 +17,9 @@ Rank Evaluator::evaluate() {
         return Rank { .elements = 1, .score = static_cast<float>(max), .value = max, .max_value = max};
     static const auto vlc_instance = VLC::Instance(0, nullptr);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
+    for (const auto& [key, value] : options)
+        media.addOption(":" + key + "=" + value);
+    
     auto mp = VLC::MediaPlayer(media);
     mp.setMute(true);
     mp.play();

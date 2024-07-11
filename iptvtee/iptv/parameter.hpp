@@ -21,6 +21,7 @@ public:
     Parameters* load(const std::multimap<std::string, std::string>& map);
     std::string& operator[](std::string p);
     const std::string get(std::string param, std::string defVal = "");
+    const std::unordered_map<std::string, std::string> map(std::string param);
     const std::string pop(std::string param);
     bool contains(std::string param);
     std::function<bool(const PlaylistItem&, const int count)> filter();

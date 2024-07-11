@@ -17,7 +17,8 @@ iptvtee is a small utility to check quality of M3U streams.
  - **filter**: input filter expresion, checking for test contains a field of the M3U item.
  - **max**: the max number of M3U elements to test in a playlist.
  - **server**: the optional username and password separated by a colon, used to start the app in server mode.
-
+ - **vlc-parameters**: optional VLC evaluator engine parameters.
+ 
 ### Usage Examples
 
 **_Test m3u file_**
@@ -99,6 +100,12 @@ In order to set the default port from 8080 to something else, it is necessary to
 
 The application is using vlcpp library to access an instance of VLC, so in order to be able to run the application correclty the `VLC_PLUGIN_PATH` environment variable must be set and point to the path of VLC plugins.
 On MacOs the VLC plugins path is usually: `/Applications/VLC.app/Contents/MacOS/plugins`, so the variable should be set in this way: `VLC_PLUGIN_PATH=/Applications/VLC.app/Contents/MacOS/plugins`.
+
+The vlc-parameters command line option allows you to specify parameters for the VLC media player that the evaluator engine will use, replicating the behavior as if these parameters were passed directly to the VLC application from the command line. Multiple parameters can be specified by separating them with commas within the `vlc-parameters` option. Each parameter must follow the format used by the VLC command line interface.
+To illustrate, let's consider the **iptvtee** parameter(`vlc-parameters`). If you want to set the HTTP user agent and referrer, you can use the vlc-parameters option like so:
+ `--vlc-parameters=http-user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/117.0",http-referrer "https://somewebsite.com/"` 
+ This is equivalent to launching VLC with the following command line parameters:
+  ```VLC --http-referrer "https://somewebsite.com/" --http-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/117.0"```
 
 ## Build
 

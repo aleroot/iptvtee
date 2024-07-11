@@ -10,8 +10,9 @@
 #include <thread>
 #include <algorithm>
 
-Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_concurrent) : items(list),
-    max_concurrent_analisys(max_concurrent > 0 ? max_concurrent : std::thread::hardware_concurrency())
+Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_concurrent, std::unordered_map<std::string, std::string> opt) : items(list),
+    max_concurrent_analisys(max_concurrent > 0 ? max_concurrent : std::thread::hardware_concurrency()),
+    options(opt)
 {
     if(items.empty())
         throw std::runtime_error("Playlist to analyse is empty!");
@@ -32,7 +33,7 @@ Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_co
             
             for(int i = 0; i < len; i++, i_playlist++) {
                 const std::string url = items[i_playlist].url;
-                batch[i] = std::async(std::launch::async, &Evaluator::evaluate, Evaluator(url, eval_max_time));
+                batch[i] = std::async(std::launch::async, &Evaluator::evaluate, Evaluator(url, eval_max_time, options));
             }
             
             int count = 0;
