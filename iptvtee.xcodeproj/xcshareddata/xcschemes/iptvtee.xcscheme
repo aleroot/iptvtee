@@ -51,6 +51,20 @@
             ReferencedContainer = "container:iptvtee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "http://quality.lion.re:2052/get.php?username=bevilacqua&amp;password=g2clcrdKLi&amp;type=m3u_plus"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--time=3"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--filter=sky&amp;sport|cinema"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "VLC_PLUGIN_PATH"

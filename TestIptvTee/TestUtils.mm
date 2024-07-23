@@ -114,11 +114,26 @@ PlaylistItem sportF1{0, "", "Sport F1", "", "", ""};
     XCTAssertTrue(filter(sportF1, 0));
 }
 
+- (void)testAndOrFilter {
+    PlaylistItem f1{0, "", "Sly Sport F1", "", "", ""};
+    PlaylistItem cinema{0, "", "Sly Cinema 1", "", "", ""};
+    std::unordered_map<std::string, std::string> p;
+    p["filter"] = "Sly&Cinema|F1";
+    p["max"] = "15000";
+    std::function<bool (const PlaylistItem &, const int c)> filter = FilterUtils::extractFilter(p);
+    int c = 0;
+    XCTAssertTrue(filter(f1, c++));
+    XCTAssertTrue(filter(cinema, c++));
+    XCTAssertTrue(filter(sportF1, c++));
+    PlaylistItem missing{0, "", "Cinema 1", "", "", ""};
+    XCTAssertFalse(filter(missing, c++));
+
+}
+
 - (void)testFormat {
     XCTAssertEqual(Format::CSV, ReportUtils::toFormat("CSV"));
     XCTAssertEqual(Format::JSON, ReportUtils::toFormat("JSON"));
     XCTAssertEqual(Format::M3U, ReportUtils::toFormat("M3U"));
-    
     XCTAssertEqual(Format::M3U, ReportUtils::toFormat("  M3U   "));
 }
 

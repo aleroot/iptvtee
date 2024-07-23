@@ -66,7 +66,7 @@ namespace FilterUtils
                     std::optional<std::string> opt = StringUtils::extractPrefixAndStrip(a);
                     const std::string ax = opt.has_value() ? item.by(opt) : x;
                     if(!a.empty())
-                        result |= StringUtils::contains(x, a);
+                        result |= StringUtils::contains(ax, a);
                 }
             }
             return result;
