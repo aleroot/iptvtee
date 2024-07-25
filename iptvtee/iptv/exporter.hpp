@@ -69,6 +69,16 @@ namespace Exporters {
         bool addRow(ExportableItem row);
     };
 
+    class EnigmaWriter
+    {
+        std::ostream& file;
+        std::string bouquetName;
+        int number = 0;
+    public:
+        explicit EnigmaWriter(std::ostream& file, const std::string& name = "IPTVTEE - EXPORT");
+        bool addRow(const ExportableItem& row);
+    };
+
 }
 
 #endif /* exporter_hpp */

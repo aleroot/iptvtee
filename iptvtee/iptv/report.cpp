@@ -16,10 +16,29 @@ Report::Report(Playlist items, std::vector<Rank> ranks) {
     }
 }
 
+template<typename T>
+concept Writer = requires(T t, const ExportableItem& item) {
+    { t.addRow(item) } -> std::convertible_to<bool>;
+};
+
+template<Writer W>
+bool exportWithWriter(std::ostream& outFile, const std::vector<ExportableItem>& entries) {
+    W writer(outFile);
+    for (const auto& item : entries) {
+        if (!writer.addRow(item)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool Report::exportTo(std::ostream& outFile, Format fmt) const {
-    switch (fmt) {
-        case Format::CSV:
-        {
+    // Define a map of format to writer type
+    static const std::unordered_map<Format, std::function<bool(std::ostream&, const std::vector<ExportableItem>&)>> exporters = {
+        {Format::M3U, exportWithWriter<Exporters::M3UWriter>},
+        {Format::ENIGMA, exportWithWriter<Exporters::EnigmaWriter>},
+        {Format::URL, exportWithWriter<Exporters::URLWriter>},
+        {Format::CSV, [](std::ostream& outFile, const std::vector<ExportableItem>& entries) {
             Exporters::CSVWriter csv(outFile);
             for(ExportableItem item : entries) {
                 std::stringstream score;
@@ -29,9 +48,8 @@ bool Report::exportTo(std::ostream& outFile, Format fmt) const {
             }
             
             return csv.count() == entries.size();
-        }
-        case Format::JSON:
-        {
+        }},
+        {Format::JSON, [](std::ostream& outFile, const std::vector<ExportableItem>& entries) {
             auto length = entries.size() -1;
             std::stringstream json;
             json << "[" << std::endl;
@@ -59,34 +77,16 @@ bool Report::exportTo(std::ostream& outFile, Format fmt) const {
             json << "]";
             outFile << json.str();
             return i == length;
-        }
-        case Format::M3U:
-        {
-            Exporters::M3UWriter m3u(outFile);
-            for(ExportableItem item : entries)
-                if(!m3u.addRow(item))
-                    return false;
-            return true;
-        }
-        case Format::URL:
-        {
-            Exporters::URLWriter url(outFile);
-            for(ExportableItem item : entries)
-                if(!url.addRow(item))
-                    return false;
-            return true;
-        }
-        default:
-        {
-            Exporters::TXTWriter txt(outFile);
-            for(ExportableItem item : entries)
-                if(!txt.addRow(item))
-                    return false;
-            return true;
-        }
-    }
+        }}
+    };
+
+    // Use the map to get the correct exporter, or use TXTWriter as default
+    auto exporter = exporters.find(fmt);
+    if (exporter != exporters.end())
+        return exporter->second(outFile, entries);
+    else
+        return exportWithWriter<Exporters::TXTWriter>(outFile, entries);
     
-    return false;
 }
 
 std::string Report::mime(Format fmt) {
@@ -96,6 +96,7 @@ std::string Report::mime(Format fmt) {
         case Format::CSV: return "text/csv";
         case Format::JSON: return "application/json";
         case Format::M3U: return "application/vnd.apple.mpegurl";
+        case Format::ENIGMA: return "application/x-enigma2-bouquet";
         default: return "application/octet-stream";
     }
 }

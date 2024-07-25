@@ -10,7 +10,7 @@
 
 #include "exporter.hpp"
 
-enum class Format{ TXT, URL, CSV, JSON, M3U };
+enum class Format{ TXT, URL, CSV, JSON, M3U, ENIGMA };
 
 class Report {
     std::vector<ExportableItem> entries;

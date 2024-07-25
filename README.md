@@ -4,7 +4,7 @@ iptvtee is a small utility to check quality of M3U streams.
 ## usage
 
 ```
-    iptvtee [--format=txt|url|json|csv|m3u --jobs=15 --time=60 --runs=3 --score=1 --max=5 --page=url] file.m3u
+    iptvtee [--format=txt|url|json|csv|m3u|enigma --jobs=15 --time=60 --runs=3 --score=1 --max=5 --page=url] file.m3u
 ```
 ### Parameters descritpion 
 

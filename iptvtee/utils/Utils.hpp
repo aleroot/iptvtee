@@ -84,10 +84,11 @@ namespace ReportUtils
     inline Format toFormat(std::string strFormat) {
         StringUtils::trim(strFormat);
         std::map<std::string, Format> mappings = {{"TXT", Format::TXT},
-                                                  {"URL", Format::URL},
-                                                  {"CSV", Format::CSV},
-                                                  {"JSON", Format::JSON},
-                                                  {"M3U", Format::M3U}};
+            {"URL", Format::URL},
+            {"CSV", Format::CSV},
+            {"JSON", Format::JSON},
+            {"M3U", Format::M3U},
+            {"ENIGMA", Format::ENIGMA}};
         
         std::stringstream upperFormat;
         for(int i = 0; i < strFormat.length(); i++) {
@@ -103,11 +104,38 @@ namespace ReportUtils
     }
 }
 
+#include <string>
+namespace UrlUtils
+{
+    inline std::string url_encode(const std::string &value) {
+        std::ostringstream escaped;
+        escaped.fill('0');
+        escaped << std::hex;
+
+        for (std::string::const_iterator i = value.begin(), n = value.end(); i != n; ++i) {
+            std::string::value_type c = (*i);
+
+            // Keep alphanumeric and other accepted characters intact
+            if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~' || c == '/') {
+                escaped << c;
+                continue;
+            }
+
+            // Any other characters are percent-encoded
+            escaped << std::uppercase;
+            escaped << '%' << std::setw(2) << int((unsigned char) c);
+            escaped << std::nouppercase;
+        }
+
+        return escaped.str();
+    }
+}
+
 namespace AppUtils
 {
     inline int usage() {
         std::cerr << "iptvtee v1.0" << std::endl << "usage:" <<std::endl;
-        std::cerr << "iptvtee [--format=txt|json|csv|m3u|url --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org --server] file.m3u" << std::endl;
+        std::cerr << "iptvtee [--format=txt|json|csv|m3u|enigma|url --jobs=15 --time=60 --runs=3 --score=1 --filter=term --max=1 --page=example.org --server] file.m3u" << std::endl;
         return 1;
     }
 }
