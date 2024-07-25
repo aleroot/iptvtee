@@ -13,6 +13,7 @@
 #include "report.hpp"
 #include <chrono>
 #include <future>
+#include <unordered_map>
 
 using namespace std::chrono_literals;
 

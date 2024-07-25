@@ -19,14 +19,15 @@ namespace StringUtils
         str.erase(0, str.find_first_not_of(whitespaceDelimiters));
     }
 
-    inline std::optional<std::string> extractPrefixAndStrip(std::string& str) {
+    inline bool extractPrefixAndStrip(std::string& str, std::string& prefix) {
         size_t pos = str.find('=');
         if (pos != std::string::npos) {
-            std::string field = str.substr(0, pos);
+            prefix = str.substr(0, pos);
             str = str.substr(pos + 1); // Modify the original string to strip out the field
-            return field;
+            return true;
         }
-        return std::nullopt; // Return an empty optional if no '=' is found
+        prefix = ""; // Set an empty string if no prefix found
+        return false; // Return false if no '=' is found
     }
 
     inline int toInt(std::string str)

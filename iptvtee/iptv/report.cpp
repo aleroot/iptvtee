@@ -8,6 +8,7 @@
 #include "report.hpp"
 #include "StringUtils.hpp"
 #include <sstream>
+#include <unordered_map>
 
 Report::Report(Playlist items, std::vector<Rank> ranks) {
     for(int i = 0; i < ranks.size(); i++) {

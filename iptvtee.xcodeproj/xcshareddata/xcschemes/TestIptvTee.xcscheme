@@ -34,16 +34,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "--filter=sky&amp;cinema|sport"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "http://globalstreamz.xyz:3050/get.php?username=diana.rogers47@yahoo.com&amp;password=pUnv52tkuM&amp;type=m3u_plus"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "VLC_PLUGIN_PATH"

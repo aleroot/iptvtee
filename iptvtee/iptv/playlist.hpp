@@ -21,17 +21,17 @@ struct PlaylistItem {
     std::string logo;
     std::string url;
     
-    std::string by(std::optional<std::string> field) const {
-            if (!field) {
-                return text;  // Default to 'text' if no filterField provided
-            }
-
-            if (*field == "name") return name;
-            if (*field == "group") return group;
-            if (*field == "logo") return logo;
-            if (*field == "url") return url;
-            return text;  // Default to 'text' if no match
+    std::string by(const std::string& field) const {
+        if (field.empty()) {
+            return text;  // Default to 'text' if empty string provided
         }
+
+        if (field == "name") return name;
+        if (field == "group") return group;
+        if (field == "logo") return logo;
+        if (field == "url") return url;
+        return text;  // Default to 'text' if no match
+    }
     
     friend std::ostream& operator << (std::ostream &os, const PlaylistItem &p) {
         os << "Item{";

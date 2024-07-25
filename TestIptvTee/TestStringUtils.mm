@@ -55,45 +55,51 @@ using namespace std;
 
 - (void)testExtractPrefixAndStripBasic {
     std::string input = "key=value";
-    auto result = StringUtils::extractPrefixAndStrip(input);
+    std::string prefix;
+    bool result = StringUtils::extractPrefixAndStrip(input, prefix);
     
-    XCTAssertTrue(result.has_value());
-    XCTAssertEqual("key", result.value());
+    XCTAssertTrue(result);
+    XCTAssertEqual("key", prefix);
     XCTAssertEqual("value", input);
 }
 
 - (void)testExtractPrefixAndStripNoEquals {
     std::string input = "justAString";
-    auto result = StringUtils::extractPrefixAndStrip(input);
+    std::string prefix;
+    bool result = StringUtils::extractPrefixAndStrip(input, prefix);
     
-    XCTAssertFalse(result.has_value());
+    XCTAssertFalse(result);
+    XCTAssertEqual("", prefix);
     XCTAssertEqual("justAString", input);
 }
 
 - (void)testExtractPrefixAndStripEmptyPrefix {
     std::string input = "=value";
-    auto result = StringUtils::extractPrefixAndStrip(input);
+    std::string prefix;
+    bool result = StringUtils::extractPrefixAndStrip(input, prefix);
     
-    XCTAssertTrue(result.has_value());
-    XCTAssertEqual("", result.value());
+    XCTAssertTrue(result);
+    XCTAssertEqual("", prefix);
     XCTAssertEqual("value", input);
 }
 
 - (void)testExtractPrefixAndStripEmptyValue {
     std::string input = "key=";
-    auto result = StringUtils::extractPrefixAndStrip(input);
+    std::string prefix;
+    bool result = StringUtils::extractPrefixAndStrip(input, prefix);
     
-    XCTAssertTrue(result.has_value());
-    XCTAssertEqual("key", result.value());
+    XCTAssertTrue(result);
+    XCTAssertEqual("key", prefix);
     XCTAssertEqual("", input);
 }
 
 - (void)testExtractPrefixAndStripMultipleEquals {
     std::string input = "key=value=more";
-    auto result = StringUtils::extractPrefixAndStrip(input);
+    std::string prefix;
+    bool result = StringUtils::extractPrefixAndStrip(input, prefix);
     
-    XCTAssertTrue(result.has_value());
-    XCTAssertEqual("key", result.value());
+    XCTAssertTrue(result);
+    XCTAssertEqual("key", prefix);
     XCTAssertEqual("value=more", input);
 }
 

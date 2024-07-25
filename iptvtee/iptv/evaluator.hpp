@@ -11,6 +11,7 @@
 #include <string>
 #include <chrono>
 #include <functional>
+#include <unordered_map>
 #include "Evaluable.hpp"
 
 using namespace std::chrono_literals;

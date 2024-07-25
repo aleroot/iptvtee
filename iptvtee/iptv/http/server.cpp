@@ -11,9 +11,12 @@
 #include "Utils.hpp"
 
 bool HTTPServer::authenticate(std::string_view username, std::string_view password) const {
-    return std::ranges::any_of(users, [&](const auto& user) {
-        return user.first == username && user.second == password;
-    });
+    for (const auto& user : users) {
+        if (user.first == username && user.second == password) {
+            return true;
+        }
+    }
+    return false;
 }
 
 HTTPServer::HTTPServer(Parameters p) : params(p) {
