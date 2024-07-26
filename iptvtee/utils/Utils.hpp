@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include <map>
 #include "StringUtils.hpp"
-#include "Playlist.hpp"
+#include "playlist.hpp"
 namespace MapExtension
 {
     template <typename K, typename V>
