@@ -30,12 +30,14 @@ namespace StringUtils
         return false; // Return false if no '=' is found
     }
 
-    inline int toInt(std::string str)
+    inline long long toNumber(std::string str)
     {
         try {
-            return std::stoi(str);
-        } catch(const std::invalid_argument &e) {
+            return std::stoll(str);
+        } catch (const std::invalid_argument& e) {
             return -1;
+        } catch (const std::out_of_range& e) {
+            return -10;
         }
     }
 

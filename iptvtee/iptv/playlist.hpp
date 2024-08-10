@@ -14,7 +14,7 @@
 #include <functional>
 
 struct PlaylistItem {
-    int id;
+    long long id;
     std::string name;
     std::string text;
     std::string group;

@@ -128,7 +128,11 @@ template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istr
             parsingM3U = true;
         else if(line.starts_with("#EXTINF")){
             PlaylistLine pl_line(line);
-            PlaylistItem item { .id = StringUtils::toInt(pl_line.get("tvg-id")),
+            std::string id = pl_line.get("tvg-id");
+            std::erase_if(id, [](char const &c) {
+                return !std::isdigit(c);
+            });
+            PlaylistItem item { .id = StringUtils::toNumber(id),
                                 .name = pl_line.get("tvg-name"),
                                 .text = pl_line.description(),
                                 .group =  pl_line.get("group-title"),
