@@ -149,9 +149,11 @@ template<class _CharT, class _Traits> Playlist Playlist::fromM3U(std::basic_istr
                 list.push_back(item);
         } else if (line.size() > 3 && !line.starts_with("#") && !parsingM3U) {
             //It is not a valid M3U --> check if it's a URL or file...
-            Playlist pl = fromM3U(line, filter);
-            if (!pl.empty())
-                list.insert(list.end(), std::make_move_iterator(pl.entries.begin()), std::make_move_iterator(pl.entries.end()));
+            try {
+                Playlist pl = fromM3U(line, filter);
+                if (!pl.empty())
+                    list.insert(list.end(), std::make_move_iterator(pl.entries.begin()), std::make_move_iterator(pl.entries.end()));
+            } catch(std::invalid_argument ignore) {}
         }
     }
     
