@@ -15,8 +15,10 @@ Rank Evaluator::evaluate() {
     auto max = timeout.count();
     if(max <= 0)
         return Rank { .elements = 1, .score = static_cast<float>(max), .value = max, .max_value = max};
-    static const auto vlc_instance = VLC::Instance(0, nullptr);
+    const char* args[] = { "--quiet", "--no-video-title-show", "--no-osd" }; //avoid loading unnecessary plugins
+    static const auto vlc_instance = VLC::Instance(3, args);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
+    //eventually set additional options from command line
     for (const auto& [key, value] : options)
         media.addOption(":" + key + "=" + value);
     
