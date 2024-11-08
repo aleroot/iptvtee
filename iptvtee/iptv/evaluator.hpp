@@ -30,6 +30,17 @@ private:
     std::string url;
     long long waitFor(std::chrono::milliseconds time, std::function<bool(void)> condition) const;
     void preSettings();
+    static constexpr const char* vlc_minimal_args[] = {
+            "--quiet",                // No messages
+            "--no-video-title-show", // No video title
+            "--no-osd",             // No on-screen display
+            "--no-media-library", // No media database
+            "--no-stats",        // No statistics
+            "--no-plugins-cache", // Don't cache plugins
+            "--no-snapshot-preview", // No snapshot previews
+            "--no-sub-autodetect-file", // Don't auto-load subtitles
+            "--no-metadata-network-access" // No online metadata
+        };
 };
 
 #endif /* evaluator_hpp */
