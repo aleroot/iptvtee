@@ -31,16 +31,21 @@ private:
     long long waitFor(std::chrono::milliseconds time, std::function<bool(void)> condition) const;
     void preSettings();
     static constexpr const char* vlc_minimal_args[] = {
-            "--quiet",                // No messages
-            "--no-video-title-show", // No video title
-            "--no-osd",             // No on-screen display
-            "--no-media-library", // No media database
-            "--no-stats",        // No statistics
-            "--no-plugins-cache", // Don't cache plugins
-            "--no-snapshot-preview", // No snapshot previews
-            "--no-sub-autodetect-file", // Don't auto-load subtitles
-            "--no-metadata-network-access" // No online metadata
-        };
+        "--quiet",                      // Suppress all console output
+        "--no-video-title-show",        // Don't display the video title on video start
+        "--no-osd",                     // Disable On-Screen Display (OSD)
+        "--no-stats",                   // Don't collect playback statistics
+        "--no-snapshot-preview",        // Disable snapshot previews
+        "--no-sub-autodetect-file",     // Don't auto-detect subtitle files
+        "--no-metadata-network-access", // Don't fetch metadata from the network
+        "--no-audio",                   // Disable audio processing completely
+        "--vout=dummy",                 // Use dummy video output (no actual display)
+        "--network-caching=50",         // Set network caching to 50ms
+        "--file-caching=0",             // Disable file caching
+        "--live-caching=50",            // Set live caching to 50ms
+        "--sout-mux-caching=0",         // Disable mux caching
+        "--no-spu"                      // Disable sub-picture processing (including subtitles)
+    };
 };
 
 #endif /* evaluator_hpp */
