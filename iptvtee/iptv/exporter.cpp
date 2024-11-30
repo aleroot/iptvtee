@@ -9,7 +9,7 @@
 #include "Utils.hpp"
 #include <sstream>
 
-Exporters::TXTWriter::TXTWriter(std::ostream& file) : file(file) {
+Exporters::TXTWriter::TXTWriter(std::ostream& file, const std::string& name) : file(file) {
     // No header needed for this simple format
 }
 
@@ -24,7 +24,7 @@ bool Exporters::TXTWriter::addRow(const ExportableItem& row) {
     return true;
 }
 
-Exporters::URLWriter::URLWriter(std::ostream& file) : file(file) { }
+Exporters::URLWriter::URLWriter(std::ostream& file, const std::string& name) : file(file) { }
 
 bool Exporters::URLWriter::addRow(const ExportableItem& row) {
     if (row.item.url.empty()) {
@@ -71,7 +71,7 @@ void Exporters::CSVWriter::enquoteIfNecessary(std::vector<std::string> &row) {
     linesCount++;
 }
 
-Exporters::M3UWriter::M3UWriter(std::ostream& file) : file(file) {
+Exporters::M3UWriter::M3UWriter(std::ostream& file, const std::string& name) : file(file) {
     file << "#EXTM3U" << std::endl;
 }
 

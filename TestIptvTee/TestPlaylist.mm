@@ -49,22 +49,15 @@
 }
 
 - (void)testReadURLs {
-    std::stringstream str_strm("http://livestreaming.videolina.it/live/Videolina/playlist.m3u8");
+    std::stringstream str_strm("https://d3749synfikwkv.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-74ylxpgd78bpb/Live.m3u8");
     Playlist pl = Playlist::fromM3U(str_strm);
     XCTAssertEqual(1, pl.size());
 }
 
 - (void)testReadFileNotExists {
     std::stringstream str_strm("M3u-Server.m3u8");
-    try {
-        Playlist::fromM3U(str_strm);
-        XCTFail("An Exception is expected!");
-    } catch (std::invalid_argument const &ex) {
-        //Success
-        std::stringstream ex_msg;
-        ex_msg << ex.what();
-        XCTAssertEqual("Given url:M3u-Server.m3u8 not parsable!", ex_msg.str());
-    }
+    Playlist pl = Playlist::fromM3U(str_strm);
+    XCTAssertEqual(0, pl.size());
 }
 
 

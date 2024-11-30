@@ -14,8 +14,9 @@ enum class Format{ TXT, URL, CSV, JSON, M3U, ENIGMA };
 
 class Report {
     std::vector<ExportableItem> entries;
+    std::string title;
 public:
-    Report(Playlist items, std::vector<Rank> ranks);
+    Report(std::string name, Playlist items, std::vector<Rank> ranks);
     static std::string mime(Format fmt);
     bool exportTo(std::ostream& outFile, Format fmt = Format::M3U) const;
     friend std::ostream& operator<< (std::ostream& os, const Report& r)  {

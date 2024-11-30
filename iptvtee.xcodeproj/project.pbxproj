@@ -29,6 +29,9 @@
 		CA685FAA27A9D82D00FE9753 /* analyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA685F9E27A6840700FE9753 /* analyzer.cpp */; };
 		CA685FAB27A9D8D700FE9753 /* evaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE6E2265A590100FB3568 /* evaluator.cpp */; };
 		CA95D31C27A422A500FBD8C0 /* playlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA95D31A27A422A500FBD8C0 /* playlist.cpp */; };
+		CA9B5ED82CF7B69A00ED13D7 /* WordCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9B5ED72CF7B69A00ED13D7 /* WordCounter.cpp */; };
+		CA9B5ED92CF7B69A00ED13D7 /* WordCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9B5ED72CF7B69A00ED13D7 /* WordCounter.cpp */; };
+		CA9B5EDB2CF7C7E100ED13D7 /* TestWordCounter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA9B5EDA2CF7C7E100ED13D7 /* TestWordCounter.mm */; };
 		CAA25B2926581FC6003E45A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAA25B2826581FC6003E45A4 /* main.cpp */; };
 		CAB650492860E6C000C1F41A /* TestUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = CAB650482860E6C000C1F41A /* TestUtils.mm */; };
 		FEC436892C3E6B990037354E /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEC436872C3E6B990037354E /* server.cpp */; };
@@ -78,6 +81,9 @@
 		CA95D31B27A422A500FBD8C0 /* playlist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = playlist.hpp; sourceTree = "<group>"; };
 		CA95D32027A42D5F00FBD8C0 /* StringUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StringUtils.hpp; sourceTree = "<group>"; };
 		CA97B427285F218300AF423C /* iptvtee.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = iptvtee.py; sourceTree = "<group>"; };
+		CA9B5ED62CF7B69A00ED13D7 /* WordCounter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WordCounter.hpp; sourceTree = "<group>"; };
+		CA9B5ED72CF7B69A00ED13D7 /* WordCounter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WordCounter.cpp; sourceTree = "<group>"; };
+		CA9B5EDA2CF7C7E100ED13D7 /* TestWordCounter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestWordCounter.mm; sourceTree = "<group>"; };
 		CAA25B2526581FC6003E45A4 /* iptvtee */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = iptvtee; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAA25B2826581FC6003E45A4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CAA25B3526582093003E45A4 /* Instance.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Instance.hpp; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				CA512578285CF4FE00260CC4 /* TestExporter.mm */,
 				CA07A87F285DAD0000060A6D /* TestStringUtils.mm */,
 				CAB650482860E6C000C1F41A /* TestUtils.mm */,
+				CA9B5EDA2CF7C7E100ED13D7 /* TestWordCounter.mm */,
 			);
 			path = TestIptvTee;
 			sourceTree = "<group>";
@@ -141,6 +148,7 @@
 		CA3DE6E1265A58DF00FB3568 /* iptv */ = {
 			isa = PBXGroup;
 			children = (
+				CA9B5ED22CF7B67000ED13D7 /* stats */,
 				CA65A2BB27A577C500471500 /* http */,
 				CA3DE6E2265A590100FB3568 /* evaluator.cpp */,
 				CA3DE6E3265A590100FB3568 /* evaluator.hpp */,
@@ -186,6 +194,15 @@
 				CA71977D28550992002061DD /* Utils.hpp */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		CA9B5ED22CF7B67000ED13D7 /* stats */ = {
+			isa = PBXGroup;
+			children = (
+				CA9B5ED62CF7B69A00ED13D7 /* WordCounter.hpp */,
+				CA9B5ED72CF7B69A00ED13D7 /* WordCounter.cpp */,
+			);
+			path = stats;
 			sourceTree = "<group>";
 		};
 		CAA25B1C26581FC6003E45A4 = {
@@ -360,8 +377,10 @@
 				CA396E3C266CDB7E00575ECD /* TestRank.mm in Sources */,
 				CA685FA927A9D08200FE9753 /* TestAnalyzer.mm in Sources */,
 				CAB650492860E6C000C1F41A /* TestUtils.mm in Sources */,
+				CA9B5ED82CF7B69A00ED13D7 /* WordCounter.cpp in Sources */,
 				CA685FA627A8459700FE9753 /* playlist.cpp in Sources */,
 				CA512579285CF4FE00260CC4 /* TestExporter.mm in Sources */,
+				CA9B5EDB2CF7C7E100ED13D7 /* TestWordCounter.mm in Sources */,
 				CA685FA727A845B800FE9753 /* downloader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +397,7 @@
 				CA3DE6E4265A590100FB3568 /* evaluator.cpp in Sources */,
 				FEC436892C3E6B990037354E /* server.cpp in Sources */,
 				CA3081E427AE6E9B00415D02 /* report.cpp in Sources */,
+				CA9B5ED92CF7B69A00ED13D7 /* WordCounter.cpp in Sources */,
 				CA4CA1F32870EB2600108897 /* parameter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

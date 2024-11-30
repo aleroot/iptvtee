@@ -9,6 +9,7 @@
 #define analyzer_hpp
 
 #include "Evaluable.hpp"
+#include "WordCounter.hpp"
 #include "playlist.hpp"
 #include "report.hpp"
 #include <chrono>
@@ -21,6 +22,7 @@ class Analyzer : public virtual Evaluable {
     int max_concurrent_analisys = 1;
     Playlist items;
     Rank result;
+    WordCounter nameCounter{2};
     std::vector<Rank> work_result;
     std::future<Rank> work_producer;
     Rank calc_total();

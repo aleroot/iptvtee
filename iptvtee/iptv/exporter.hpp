@@ -25,13 +25,15 @@ struct ExportableItem {
     }
 };
 
+static constexpr std::string DEFAULT_EXPORT_TITLE = "IPTVTEE - EXPORT";
+
 namespace Exporters {
 
     class TXTWriter
     {
         std::ostream& file;
     public:
-        explicit TXTWriter(std::ostream& file);
+        explicit TXTWriter(std::ostream& file, const std::string& name = DEFAULT_EXPORT_TITLE);
         bool addRow(const ExportableItem& row);
     };
 
@@ -39,7 +41,7 @@ namespace Exporters {
     {
         std::ostream& file;
     public:
-        explicit URLWriter(std::ostream& file);
+        explicit URLWriter(std::ostream& file, const std::string& name = DEFAULT_EXPORT_TITLE);
         bool addRow(const ExportableItem& row);
     };
 
@@ -65,7 +67,7 @@ namespace Exporters {
     {
         std::ostream& file;
     public:
-        explicit M3UWriter(std::ostream& file);
+        explicit M3UWriter(std::ostream& file, const std::string& name = DEFAULT_EXPORT_TITLE);
         bool addRow(ExportableItem row);
     };
 
@@ -75,7 +77,7 @@ namespace Exporters {
         std::string bouquetName;
         int number = 0;
     public:
-        explicit EnigmaWriter(std::ostream& file, const std::string& name = "IPTVTEE - EXPORT");
+        explicit EnigmaWriter(std::ostream& file, const std::string& name = DEFAULT_EXPORT_TITLE);
         bool addRow(const ExportableItem& row);
     };
 

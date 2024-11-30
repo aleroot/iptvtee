@@ -19,7 +19,7 @@ Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_co
         
     if(max_concurrent_analisys <= 0)
         max_concurrent_analisys = 1;
-    
+
     //start a producer thread that fill in the array of futures
     work_producer = std::async(std::launch::async,
         [&,eval_max_time]() {
@@ -34,6 +34,7 @@ Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_co
             for(int i = 0; i < len; i++, i_playlist++) {
                 const std::string url = items[i_playlist].url;
                 batch[i] = std::async(std::launch::async, &Evaluator::evaluate, Evaluator(url, eval_max_time, options));
+                nameCounter.process(items[i_playlist].text);
             }
             
             int count = 0;
@@ -105,16 +106,18 @@ std::vector<Rank>::iterator Analyzer::begin() {
 std::vector<Rank>::iterator Analyzer::end()   { return work_result.end(); }
 
 Report Analyzer::report(float min_score) {
+    const std::string topWords = nameCounter.top(3,50);
+    const std::string title = "IPTVTEE - " + ((!topWords.empty()) ? topWords : "EXPORT");
     if(min_score > 0) {
         std::vector<Rank> filtered_result;
         for(Rank r : work_result) {
             if((r.score * 100) >= min_score)
                 filtered_result.push_back(r);
         }
-        return Report(items, filtered_result);
+        return Report(title, items, filtered_result);
     }
     
-    return Report(items, work_result);
+    return Report(title, items, work_result);
 }
 
 

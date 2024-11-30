@@ -10,7 +10,7 @@
 #include <sstream>
 #include <unordered_map>
 
-Report::Report(Playlist items, std::vector<Rank> ranks) {
+Report::Report(std::string name, Playlist items, std::vector<Rank> ranks) : title(name){
     for(int i = 0; i < ranks.size(); i++) {
         ExportableItem entry = { .item = items[i], .rank = ranks[i] };
         entries.push_back(entry);
@@ -18,13 +18,14 @@ Report::Report(Playlist items, std::vector<Rank> ranks) {
 }
 
 template<typename T>
-concept Writer = requires(T t, const ExportableItem& item) {
+concept Writer = requires(T t, std::ostream& os, const std::string& title, const ExportableItem& item) {
+    { T(os, title) };  // Require constructor with stream and title
     { t.addRow(item) } -> std::convertible_to<bool>;
 };
 
 template<Writer W>
-bool exportWithWriter(std::ostream& outFile, const std::vector<ExportableItem>& entries) {
-    W writer(outFile);
+bool exportWithWriter(std::ostream& outFile, const std::vector<ExportableItem>& entries, const std::string& title) {
+    W writer(outFile, title);
     for (const auto& item : entries) {
         if (!writer.addRow(item)) {
             return false;
@@ -35,11 +36,11 @@ bool exportWithWriter(std::ostream& outFile, const std::vector<ExportableItem>& 
 
 bool Report::exportTo(std::ostream& outFile, Format fmt) const {
     // Define a map of format to writer type
-    static const std::unordered_map<Format, std::function<bool(std::ostream&, const std::vector<ExportableItem>&)>> exporters = {
+    static const std::unordered_map<Format, std::function<bool(std::ostream&, const std::vector<ExportableItem>&, const std::string&)>> exporters = {
         {Format::M3U, exportWithWriter<Exporters::M3UWriter>},
         {Format::ENIGMA, exportWithWriter<Exporters::EnigmaWriter>},
         {Format::URL, exportWithWriter<Exporters::URLWriter>},
-        {Format::CSV, [](std::ostream& outFile, const std::vector<ExportableItem>& entries) {
+        {Format::CSV, [](std::ostream& outFile, const std::vector<ExportableItem>& entries, const std::string& title) {
             Exporters::CSVWriter csv(outFile);
             for(ExportableItem item : entries) {
                 std::stringstream score;
@@ -50,7 +51,7 @@ bool Report::exportTo(std::ostream& outFile, Format fmt) const {
             
             return csv.count() == entries.size();
         }},
-        {Format::JSON, [](std::ostream& outFile, const std::vector<ExportableItem>& entries) {
+        {Format::JSON, [](std::ostream& outFile, const std::vector<ExportableItem>& entries, const std::string& title) {
             auto length = entries.size() -1;
             std::stringstream json;
             json << "[" << std::endl;
@@ -84,9 +85,9 @@ bool Report::exportTo(std::ostream& outFile, Format fmt) const {
     // Use the map to get the correct exporter, or use TXTWriter as default
     auto exporter = exporters.find(fmt);
     if (exporter != exporters.end())
-        return exporter->second(outFile, entries);
+        return exporter->second(outFile, entries, title);
     else
-        return exportWithWriter<Exporters::TXTWriter>(outFile, entries);
+        return exportWithWriter<Exporters::TXTWriter>(outFile, entries, title);
     
 }
 
