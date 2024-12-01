@@ -9,7 +9,7 @@
 #define analyzer_hpp
 
 #include "Evaluable.hpp"
-#include "WordCounter.hpp"
+#include "stats/WordCounter.hpp"
 #include "playlist.hpp"
 #include "report.hpp"
 #include <chrono>

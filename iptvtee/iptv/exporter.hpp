@@ -25,7 +25,7 @@ struct ExportableItem {
     }
 };
 
-static constexpr std::string DEFAULT_EXPORT_TITLE = "IPTVTEE - EXPORT";
+static std::string DEFAULT_EXPORT_TITLE = "IPTVTEE - EXPORT";
 
 namespace Exporters {
 
