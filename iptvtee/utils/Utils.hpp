@@ -135,6 +135,28 @@ namespace UrlUtils
     }
 }
 
+namespace CodecUtils
+{
+    inline std::string fourccToString(uint32_t codec) {
+        char fourcc[5] = {
+            static_cast<char>(codec & 0xFF),
+            static_cast<char>((codec >> 8) & 0xFF),
+            static_cast<char>((codec >> 16) & 0xFF),
+            static_cast<char>((codec >> 24) & 0xFF),
+            '\0'
+        };
+        
+        const bool allPrintable = std::all_of(fourcc, fourcc + 4,[](unsigned char c) { return std::isprint(c); });
+        if (!allPrintable) {
+            std::stringstream ss;
+            ss << "0x" << std::hex << std::uppercase << codec;
+            return ss.str();
+        }
+        
+        return std::string(fourcc);
+    }
+}
+
 namespace AppUtils
 {
     inline int usage() {

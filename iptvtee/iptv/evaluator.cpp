@@ -6,17 +6,21 @@
 //
 
 #include "evaluator.hpp"
+#include "Utils.hpp"
 #include "vlcpp/vlc.hpp"
 
 #include <thread>
 
 Rank Evaluator::evaluate() {
+    const std::chrono::milliseconds start_delay = std::chrono::duration_cast<std::chrono::milliseconds>(initial_wait);
     const std::chrono::milliseconds timeout = std::chrono::duration_cast<std::chrono::milliseconds>(evaluation_timeout);
     auto max = timeout.count();
     if(max <= 0)
         return Rank { .elements = 1, .score = static_cast<float>(max), .value = max, .max_value = max};
     static const auto vlc_instance = VLC::Instance(sizeof(vlc_minimal_args)/sizeof(*vlc_minimal_args), vlc_minimal_args);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
+    // Parse the media to get track information
+    media.parseWithOptions(VLC::Media::ParseFlags::Local | VLC::Media::ParseFlags::Network,static_cast<int>((start_delay + timeout).count()));
     //eventually set additional options from command line
     for (const auto& [key, value] : options)
         media.addOption(":" + key + "=" + value);
@@ -25,12 +29,31 @@ Rank Evaluator::evaluate() {
     mp.setMute(true);
     mp.play();
     
-    waitFor(std::chrono::duration_cast<std::chrono::milliseconds>(initial_wait), [&] () -> bool { return (!mp.isPlaying()); });
     
+    waitFor(start_delay, [&] () -> bool { return (!mp.isPlaying()); });
     auto waited = waitFor(timeout, [&] () -> bool { return mp.isPlaying(); });
+    
+    Quality quality;
+    if(media.parsedStatus() == VLC::Media::ParsedStatus::Done) {
+        auto tracks = media.tracks();
+        for (const auto& track : tracks) {
+            if (track.type() == VLC::MediaTrack::Type::Video) {
+                quality.width = track.width();
+                quality.height = track.height();
+                quality.bitrate = track.bitrate();
+                if(track.codec() > 0)
+                    quality.codec = CodecUtils::fourccToString(track.codec());
+                if (track.fpsDen() > 0) {
+                    quality.fps = static_cast<float>(track.fpsNum()) / track.fpsDen();
+                }
+                break;
+            }
+        }
+    }
+    
     mp.stop();
     
-    return Rank { .elements = 1, .score = (waited / static_cast<float>(max)), .value = waited, .max_value = max};
+    return Rank { .elements = 1, .score = (waited / static_cast<float>(max)), .value = waited, .max_value = max, .quality = quality};
 }
 
 long long Evaluator::waitFor(std::chrono::milliseconds time, std::function<bool(void)> condition) const {
