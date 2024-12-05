@@ -50,7 +50,7 @@ struct Rank {
     }
 };
 
-#include <ostream>
+#include <iostream>
 #include <iomanip>
 
 inline std::ostream& operator<<(std::ostream& os, const Quality& quality) {
@@ -65,12 +65,37 @@ inline std::ostream& operator<<(std::ostream& os, const Quality& quality) {
     return os;
 }
 
+#include <unistd.h>
+
 inline std::ostream &operator<<(std::ostream &os, const Rank &rank) {
-    os << "Rank{ score = " << std::fixed << std::setprecision(2) << (rank.score * 100) << "%, value = " << rank.value << ", max = " << rank.max_value << ", count = " << rank.elements;
+    const bool is_colored_console = (isatty(fileno(stdout)) != 0 || isatty(fileno(stderr)) != 0) && std::getenv("NO_COLOR") == nullptr;
+    
+    // ANSI color codes
+    const char* color;
+    if (is_colored_console) {
+        if (rank.score > 0.5) color = "\033[0;32m";        // green
+        else if (rank.score > 0.05) color = "\033[0;33m";  // orange/yellow
+        else color = "\033[0;31m";                         // red
+        
+        os << color;
+    }
+    
+    // Output the full Rank content
+    os << "Rank{ score = " << std::fixed << std::setprecision(2)
+       << (rank.score * 100) << "%, value = " << rank.value
+       << ", max = " << rank.max_value << ", count = " << rank.elements;
+    
     if(!rank.quality.empty())
         os << ", quality = " << rank.quality;
+        
     os << " }";
-  return os;
+    
+    // Reset color if we're in console mode
+    if (is_colored_console) {
+        os << "\033[0m";  // Reset all attributes
+    }
+    
+    return os;
 }
 
 inline Rank& operator+=(Rank& lhs, Rank& rhs) {
