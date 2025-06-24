@@ -88,7 +88,12 @@ bool Exporters::M3UWriter::addRow(ExportableItem row) {
         file << " tvg-logo=\"" << row.item.logo << "\"";
     if(!row.item.group.empty())
         file << " group-title=\"" << row.item.group << "\"";
-    file << "," << row.item.text << "(Rank:" << std::fixed << std::setprecision(0) << (row.rank.score * 100) << "%)"  << std::endl;
+    file << "," << row.item.text;
+
+    if (row.rank.value > 0)
+        file << "(Rank:" << std::fixed << std::setprecision(0) << (row.rank.score * 100) << "%)";
+    
+    file << std::endl;
     file << row.item.url << std::endl;
     return true;
 }

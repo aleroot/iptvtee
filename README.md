@@ -18,6 +18,15 @@ iptvtee is a small utility to check quality of M3U streams.
  - **max**: the max number of M3U elements to test in a playlist.
  - **server**: the optional username and password separated by a colon, used to start the app in server mode.
  - **vlc-parameters**: optional VLC evaluator engine parameters.
+
+### Exit Codes
+
+`iptvtee` returns specific exit codes to signal the outcome of the evaluation, which is useful for automation and scripting.
+
+* **`0` - Success**: All tested playlists and their combined average score met or exceeded the threshold set by the `--score` parameter.
+* **`1` - General Failure**: The program failed to meet the success criteria. This happens if no playlists passed the test, or if the final average score of the passing playlists was still below the `--score` threshold. It's also used for general errors like invalid input.
+* **`2` - Specific Failure**: At least one playlist that was tested scored below the `min_score` threshold. This code is returned even if other playlists were successful.
+* **`130` - Usage/Help**: Returned if the program is called with no input or with `--help`, indicating a usage error.
  
 ### Usage Examples
 
@@ -50,6 +59,9 @@ _Test an M3U file for 5 seconds and filter out links with score below 1._
 iptvtee --max=5 m3u-links.txt
 ```
 _Test a text file containing a list of m3u urls, check maximum 5 elements per m3u url in the text file._
+
+**_Filter for channels containing "IT" and output into a new M3U file without testing_**
+iptvtee --filter="text=IT" --time=0 --format=m3u large_playlist.m3u > it_channels.m3u
 
 **_Scrape web page_**
 ```

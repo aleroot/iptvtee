@@ -57,6 +57,7 @@ int main(int argc, const char * argv[]) {
     //Processing evaluation...
     int run = 1;
     Rank totalRank;
+    int return_code = 0;
     const std::unordered_map<std::string, std::string> vlcOptions = params.map("vlc-parameters");
     do {
         for(int r = 0; r < iptv_lists.size(); r++) {
@@ -68,7 +69,8 @@ int main(int argc, const char * argv[]) {
                 if(params.contains("format"))
                     report.exportTo(std::cout, format);
                 std::cerr << "Report: " << report << std::endl;
-            }
+            } else
+                return_code = 1;
         }
     } while (totalRuns < run++);
     
@@ -77,7 +79,8 @@ int main(int argc, const char * argv[]) {
     if(params.contains("server")) {
         HTTPServer server(params);
         server.run();
+        return 0; // Server mode should exit cleanly on shutdown
     }
     
-    return 0;
+    return (return_code <= 0 && ((totalRank.score * 100) >= min_score)) ? 0 : return_code+1;
 }
