@@ -174,7 +174,7 @@ void Playlist::load(Playlist other) {
     entries.insert(entries.end(), other.entries.begin(), other.entries.end());
 }
 
-PlaylistItem& Playlist::operator[](int idx) {
+PlaylistItem& Playlist::operator[](size_t idx) {
     if (idx < 0 || idx >= static_cast<int>(entries.size())) {
         throw std::out_of_range("Index out of bounds");
     }

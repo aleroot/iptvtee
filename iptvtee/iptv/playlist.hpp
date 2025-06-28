@@ -63,7 +63,7 @@ public:
     Playlist(const std::vector<PlaylistItem> items);
     bool empty();
     size_t size();
-    PlaylistItem& operator[](int idx);
+    PlaylistItem& operator[](size_t idx);
     void load(Playlist other);
 };
 

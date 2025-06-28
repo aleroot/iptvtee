@@ -24,7 +24,7 @@ using namespace std::chrono_literals;
     std::vector<PlaylistItem> items = { item };
     Playlist play(items);
     
-    Analyzer analizer(play, 3s, 1);
+    Analyzer analizer(play, std::vector{3s}, 1);
     int count = 0;
     analizer.evaluate();
     for(Rank rank : analizer) {

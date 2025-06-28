@@ -86,7 +86,21 @@
     std::ostringstream sstring;
     sstring << rank;
     
-    XCTAssert("Rank{ score = 37.60%, value = 22563, max = 60000, count = 1 }" == sstring.str());
+    // Convert the std::string from the stream to an NSString
+    NSString *actualString = [NSString stringWithUTF8String:sstring.str().c_str()];
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\x1B?\\[[0-9;]+m"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    
+    NSAssert(error == nil, @"Failed to create regular expression: %@", error.localizedDescription);
+    NSString *sanitizedActualString = [regex stringByReplacingMatchesInString:actualString
+                                                                    options:0
+                                                                      range:NSMakeRange(0, [actualString length])
+                                                               withTemplate:@""];
+    NSString *expectedString = @"Rank{ score = 37.60%, value = 22563, max = 60000, count = 1 }";
+    
+    XCTAssertEqualObjects(sanitizedActualString, expectedString, @"The sanitized string representation should match the expected value.");
 }
 
 

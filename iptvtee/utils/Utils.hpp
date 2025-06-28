@@ -9,6 +9,8 @@
 #define Utils_hpp
 #include <unordered_map>
 #include <map>
+#include <sstream>
+#include <charconv>
 #include "StringUtils.hpp"
 #include "playlist.hpp"
 namespace MapExtension
@@ -22,6 +24,82 @@ namespace MapExtension
        else {
           return it->second;
        }
+    }
+}
+
+namespace TimeUtils {
+
+    /**
+     * Parses a time string into a vector of std::chrono::seconds.
+     * Correctly handles formats like:
+     * - "5" → [5s]
+     * - "5,4,3" → [5s, 4s, 3s]
+     * - "5:3,0" → [5s, 5s, 5s, 0s] (3 elements of 5s followed by 0s)
+     * - "5:3,4:2,1" → [5s,5s,5s,4s,4s,1s]
+     *
+     * @param timeArg The time string to parse.
+     * @return A vector of std::chrono::seconds with timeouts.
+     */
+    inline const std::vector<std::chrono::seconds> get_timeouts(const std::string& timeArg) noexcept {
+        std::vector<std::chrono::seconds> timeouts;
+        
+        if (timeArg.empty()) {
+            timeouts.push_back(std::chrono::seconds(60));
+            return timeouts;
+        }
+
+        std::istringstream ss(timeArg);
+        std::string segment;
+        bool parse_error = false;
+
+        auto parse_int = [&parse_error](const std::string& s) -> int {
+            int value = 0;
+            auto result = std::from_chars(s.data(), s.data() + s.size(), value);
+            if (result.ec != std::errc() || result.ptr != s.data() + s.size()) {
+                parse_error = true;
+                return 0;
+            }
+            return value;
+        };
+
+        while (std::getline(ss, segment, ',')) {
+            size_t colon_pos = segment.find(':');
+            
+            if (colon_pos != std::string::npos) {
+                // Handle count:value format (e.g., "5:3" → three 5s)
+                int value = parse_int(segment.substr(0, colon_pos));
+                int count = parse_int(segment.substr(colon_pos + 1));
+                
+                if (parse_error || count < 0) {
+                    break;
+                }
+                
+                timeouts.insert(timeouts.end(), count, std::chrono::seconds(value));
+            } else {
+                // Handle single value (either in list or as default)
+                int val = parse_int(segment);
+                if (parse_error) {
+                    break;
+                }
+                
+                // Check if this is the last segment and we have previous elements
+                if (ss.eof() && !timeouts.empty()) {
+                    // This is the default value for remaining elements
+                    if (!timeouts.empty()) {
+                        timeouts.push_back(std::chrono::seconds(val));
+                    }
+                } else {
+                    // Regular single value
+                    timeouts.push_back(std::chrono::seconds(val));
+                }
+            }
+        }
+
+        if (parse_error || timeouts.empty()) {
+            return {std::chrono::seconds(60)};
+        }
+
+        return timeouts;
     }
 }
 

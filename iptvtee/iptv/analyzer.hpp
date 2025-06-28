@@ -19,7 +19,7 @@
 using namespace std::chrono_literals;
 
 class Analyzer : public virtual Evaluable {
-    int max_concurrent_analisys = 1;
+    size_t max_concurrent_analisys = 1;
     Playlist items;
     Rank result;
     WordCounter nameCounter{2};
@@ -30,7 +30,8 @@ class Analyzer : public virtual Evaluable {
     std::mutex result_mutex;
     std::unordered_map<std::string, std::string> options;
 public:
-    explicit Analyzer(Playlist list, std::chrono::seconds eval_max_time = 30s, int max_concurrent = -1, std::unordered_map<std::string, std::string> opt = {});
+    explicit Analyzer(Playlist list, std::vector<std::chrono::seconds> timeouts = {std::chrono::seconds{30}}, int max_concurrent = -1, std::unordered_map<std::string, std::string> opt = {});
+    explicit Analyzer(Playlist list, std::chrono::seconds timeout, int max_concurrent, std::unordered_map<std::string, std::string> opt) : Analyzer(std::move(list), std::vector<std::chrono::seconds>{timeout}, max_concurrent, std::move(opt)) {}
     explicit Analyzer(std::string url) : Analyzer(Playlist::fromM3U(url)) {};
     virtual ~Analyzer();
     virtual Rank evaluate() override;

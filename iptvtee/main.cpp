@@ -26,7 +26,7 @@ int main(int argc, const char * argv[]) {
         iptv_lists.push_back(Playlist::fromM3U(file, params.filter()));
     
     const int max_jobs = std::stoi(params.get("jobs", "-1"));
-    const int max_secs = std::stoi(params.get("time", "60"));
+    const auto max_secs = TimeUtils::get_timeouts(params.get("time", "60"));
     const int totalRuns = std::stoi(params.get("runs", "1"));
     const float min_score = std::stof(params.get("score", "0"));
     const Format format = ReportUtils::toFormat(params.get("format"));
@@ -61,7 +61,7 @@ int main(int argc, const char * argv[]) {
     const std::unordered_map<std::string, std::string> vlcOptions = params.map("vlc-parameters");
     do {
         for(int r = 0; r < iptv_lists.size(); r++) {
-            Analyzer playlistEvaluator(iptv_lists[r],std::chrono::seconds(max_secs), max_jobs, vlcOptions);
+            Analyzer playlistEvaluator(iptv_lists[r],max_secs, max_jobs, vlcOptions);
             Rank rank = playlistEvaluator.evaluate();
             if((rank.score * 100) >= min_score) {
                 totalRank = (run > 1 || r > 0) ? totalRank + rank : rank;

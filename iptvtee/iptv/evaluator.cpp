@@ -12,11 +12,11 @@
 #include <thread>
 
 Rank Evaluator::evaluate() {
-    const std::chrono::milliseconds start_delay = std::chrono::duration_cast<std::chrono::milliseconds>(initial_wait);
     const std::chrono::milliseconds timeout = std::chrono::duration_cast<std::chrono::milliseconds>(evaluation_timeout);
     auto max = timeout.count();
     if(max <= 0)
-        return Rank { .elements = 1, .score = static_cast<float>(max), .value = max, .max_value = max};
+        return Rank { .elements = 1, .score = 1.0f, .value = 0, .max_value = max};
+    const std::chrono::milliseconds start_delay = std::chrono::duration_cast<std::chrono::milliseconds>(initial_wait);
     static const auto vlc_instance = VLC::Instance(sizeof(vlc_minimal_args)/sizeof(*vlc_minimal_args), vlc_minimal_args);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
     // Parse the media to get track information

@@ -10,7 +10,9 @@ iptvtee is a small utility to check quality of M3U streams.
 
  - **format**: export format printed out on stdout
  - **jobs**: number of concurrent iptv flows runned concurrenlty
- - **time**: reference time for playback of the flow(default: 60 seconds)
+ - **time**: reference time for playback of the flow(default: 60 seconds)This parameter can accept multiple formats:
+    * A single number (e.g., `--time=3`) to test all streams for 3 seconds.
+    * A comma-separated list of timeouts to test each stream with the corresponding timeout, accepting a colon-separated format for ranges (e.g., `--time=5:10,3`) to test the first 10 streams for 5 seconds and the rest for 3 seconds.Whenever the playlist is longer than the list, the last timeout is used for the remaining streams.
  - **runs**: number of repeated runs of the test playback(default: 1 run)
  - **score**: minimum score of the flow. tested flow under this minimum are filtered out from the result.
  - **page**: an HTML url page to scrape for .m3u links

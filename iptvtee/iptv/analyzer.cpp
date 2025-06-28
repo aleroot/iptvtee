@@ -10,7 +10,7 @@
 #include <thread>
 #include <algorithm>
 
-Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_concurrent, std::unordered_map<std::string, std::string> opt) : items(list),
+Analyzer::Analyzer(Playlist list, std::vector<std::chrono::seconds> timeouts, int max_concurrent, std::unordered_map<std::string, std::string> opt) : items(list),
     max_concurrent_analisys(max_concurrent > 0 ? max_concurrent : std::thread::hardware_concurrency()),
     options(opt)
 {
@@ -22,16 +22,17 @@ Analyzer::Analyzer(Playlist list, std::chrono::seconds eval_max_time, int max_co
 
     //start a producer thread that fill in the array of futures
     work_producer = std::async(std::launch::async,
-        [&,eval_max_time]() {
-        int i_playlist = 0;
-        int size = (int)items.size();
+        [&,timeouts]() {
+        size_t i_playlist = 0;
+        size_t size = items.size();
         
         while(work_result.size() < size) {
             //start processing of list in batches
-            const int len = std::min(max_concurrent_analisys, size - i_playlist);
+            const size_t len = std::min(max_concurrent_analisys, size - i_playlist);
             std::future<Rank> batch[len];
             
             for(int i = 0; i < len; i++, i_playlist++) {
+                const auto eval_max_time = timeouts[std::min(i_playlist, timeouts.size()-1)];
                 const std::string url = items[i_playlist].url;
                 batch[i] = std::async(std::launch::async, &Evaluator::evaluate, Evaluator(url, eval_max_time, options));
                 nameCounter.process(items[i_playlist].text);
@@ -73,13 +74,10 @@ Rank Analyzer::calc_total() {
     Rank total;
     std::lock_guard<std::mutex> lock(result_mutex);
     if(work_result.size() > first) {
-        total.value = work_result[first].value;
-        total.elements = work_result[first].elements;
-        total.score = work_result[first].score;
-        total.max_value = work_result[first].max_value;
+        total = work_result[first];
         
-        for(int i =1; i < work_result.size(); i++) {
-            total += work_result[i];
+        for(size_t i = 1; i < work_result.size(); i++) {
+            total = total + work_result[i];
         }
     }
     
@@ -103,18 +101,31 @@ std::vector<Rank>::iterator Analyzer::begin() {
     evaluate();
     return work_result.begin();
 }
-std::vector<Rank>::iterator Analyzer::end()   { return work_result.end(); }
+
+std::vector<Rank>::iterator Analyzer::end()   {
+    evaluate();
+    return work_result.end();
+}
 
 Report Analyzer::report(float min_score) {
+    evaluate();
     const std::string topWords = nameCounter.top(3,50);
     const std::string title = "IPTVTEE - " + ((!topWords.empty()) ? topWords : "EXPORT");
     if(min_score > 0) {
-        std::vector<Rank> filtered_result;
-        for(Rank r : work_result) {
-            if((r.score * 100) >= min_score)
-                filtered_result.push_back(r);
+        std::vector<PlaylistItem> filtered_items;
+        std::vector<Rank> filtered_ranks;
+
+        if (work_producer.valid()) {
+            work_producer.wait();
         }
-        return Report(title, items, filtered_result);
+
+        for (size_t i = 0; i < work_result.size(); ++i) {
+            if ((work_result[i].score * 100) >= min_score) {
+                filtered_items.push_back(items[i]);
+                filtered_ranks.push_back(work_result[i]);
+            }
+        }
+        return Report(title, Playlist(filtered_items), filtered_ranks);
     }
     
     return Report(title, items, work_result);
