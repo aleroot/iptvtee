@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CA07A880285DAD0000060A6D /* TestStringUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA07A87F285DAD0000060A6D /* TestStringUtils.mm */; };
+		CA1BA6652E119C1900D6EEA8 /* WordCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA9B5ED72CF7B69A00ED13D7 /* WordCounter.cpp */; };
+		CA1BA6662E119C2100D6EEA8 /* downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA65A2BC27A577D800471500 /* downloader.cpp */; };
+		CA1BA6672E119C2600D6EEA8 /* evaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE6E2265A590100FB3568 /* evaluator.cpp */; };
+		CA1BA6682E119C2E00D6EEA8 /* report.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3081E227AE6E9B00415D02 /* report.cpp */; };
+		CA1BA6692E119C3900D6EEA8 /* parameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA4CA1F12870EB2600108897 /* parameter.cpp */; };
+		CA1BA66A2E119C4600D6EEA8 /* analyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA685F9E27A6840700FE9753 /* analyzer.cpp */; };
+		CA1BA66B2E119C6D00D6EEA8 /* playlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA95D31A27A422A500FBD8C0 /* playlist.cpp */; };
+		CA1BA66C2E119CA600D6EEA8 /* exporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA512562285CCD8B00260CC4 /* exporter.cpp */; };
 		CA227ACF28573BA600967E65 /* report.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3081E227AE6E9B00415D02 /* report.cpp */; };
 		CA3081E427AE6E9B00415D02 /* report.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA3081E227AE6E9B00415D02 /* report.cpp */; };
 		CA32573328B8E64400D487D8 /* TestParameter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA32573228B8E64400D487D8 /* TestParameter.mm */; };
@@ -52,6 +60,7 @@
 /* Begin PBXFileReference section */
 		CA07A87F285DAD0000060A6D /* TestStringUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestStringUtils.mm; sourceTree = "<group>"; };
 		CA07A882285DD48000060A6D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CA1BA6612E119C0600D6EEA8 /* libiptvtee.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libiptvtee.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA230B902854B54800A5C136 /* FileUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtils.hpp; sourceTree = "<group>"; };
 		CA3081E227AE6E9B00415D02 /* report.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = report.cpp; sourceTree = "<group>"; };
 		CA3081E327AE6E9B00415D02 /* report.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = report.hpp; sourceTree = "<group>"; };
@@ -110,6 +119,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CA1BA65F2E119C0600D6EEA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA396E30266CDB1F00575ECD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,6 +240,7 @@
 			children = (
 				CAA25B2526581FC6003E45A4 /* iptvtee */,
 				CA396E33266CDB1F00575ECD /* TestIptvTee.xctest */,
+				CA1BA6612E119C0600D6EEA8 /* libiptvtee.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,7 +297,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		CA1BA65D2E119C0600D6EEA8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		CA1BA6602E119C0600D6EEA8 /* libiptvtee */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA1BA6622E119C0600D6EEA8 /* Build configuration list for PBXNativeTarget "libiptvtee" */;
+			buildPhases = (
+				CA1BA65D2E119C0600D6EEA8 /* Headers */,
+				CA1BA65E2E119C0600D6EEA8 /* Sources */,
+				CA1BA65F2E119C0600D6EEA8 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libiptvtee;
+			packageProductDependencies = (
+			);
+			productName = libiptvtee;
+			productReference = CA1BA6612E119C0600D6EEA8 /* libiptvtee.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		CA396E32266CDB1F00575ECD /* TestIptvTee */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA396E38266CDB1F00575ECD /* Build configuration list for PBXNativeTarget "TestIptvTee" */;
@@ -323,6 +369,9 @@
 			attributes = {
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					CA1BA6602E119C0600D6EEA8 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					CA396E32266CDB1F00575ECD = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -345,6 +394,7 @@
 			targets = (
 				CAA25B2426581FC6003E45A4 /* iptvtee */,
 				CA396E32266CDB1F00575ECD /* TestIptvTee */,
+				CA1BA6602E119C0600D6EEA8 /* libiptvtee */,
 			);
 		};
 /* End PBXProject section */
@@ -361,6 +411,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CA1BA65E2E119C0600D6EEA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1BA66C2E119CA600D6EEA8 /* exporter.cpp in Sources */,
+				CA1BA66B2E119C6D00D6EEA8 /* playlist.cpp in Sources */,
+				CA1BA66A2E119C4600D6EEA8 /* analyzer.cpp in Sources */,
+				CA1BA6692E119C3900D6EEA8 /* parameter.cpp in Sources */,
+				CA1BA6682E119C2E00D6EEA8 /* report.cpp in Sources */,
+				CA1BA6672E119C2600D6EEA8 /* evaluator.cpp in Sources */,
+				CA1BA6662E119C2100D6EEA8 /* downloader.cpp in Sources */,
+				CA1BA6652E119C1900D6EEA8 /* WordCounter.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA396E2F266CDB1F00575ECD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,6 +470,42 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		CA1BA6632E119C0600D6EEA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_NAME = iptvtee;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CA1BA6642E119C0600D6EEA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_NAME = iptvtee;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		CA396E39266CDB1F00575ECD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -592,6 +693,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CA1BA6622E119C0600D6EEA8 /* Build configuration list for PBXNativeTarget "libiptvtee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA1BA6632E119C0600D6EEA8 /* Debug */,
+				CA1BA6642E119C0600D6EEA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CA396E38266CDB1F00575ECD /* Build configuration list for PBXNativeTarget "TestIptvTee" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

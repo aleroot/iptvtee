@@ -6,8 +6,9 @@ if platform.system() == "Darwin":
     DYLD_LIBRARY_PATH = "/Applications/VLC.app/Contents/MacOS/lib"
     ctypes.cdll.LoadLibrary(f'{DYLD_LIBRARY_PATH}/libvlccore.dylib')
     ctypes.cdll.LoadLibrary(f'{DYLD_LIBRARY_PATH}/libvlc.dylib')
-
-lib = ctypes.cdll.LoadLibrary('./libiptvtee.so')
+    lib = ctypes.cdll.LoadLibrary('./libiptvtee.dylib')
+else:
+    lib = ctypes.cdll.LoadLibrary('./libiptvtee.so')
 
 class Analyzer(object):
     def __init__(self, val):

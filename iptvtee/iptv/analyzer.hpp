@@ -32,7 +32,7 @@ class Analyzer : public virtual Evaluable {
 public:
     explicit Analyzer(Playlist list, std::vector<std::chrono::seconds> timeouts = {std::chrono::seconds{30}}, int max_concurrent = -1, std::unordered_map<std::string, std::string> opt = {});
     explicit Analyzer(Playlist list, std::chrono::seconds timeout, int max_concurrent, std::unordered_map<std::string, std::string> opt) : Analyzer(std::move(list), std::vector<std::chrono::seconds>{timeout}, max_concurrent, std::move(opt)) {}
-    explicit Analyzer(std::string url) : Analyzer(Playlist::fromM3U(url)) {};
+    explicit Analyzer(std::string url, std::vector<std::chrono::seconds> timeouts = {std::chrono::seconds{30}}) : Analyzer(Playlist::fromM3U(url) , timeouts) {};
     virtual ~Analyzer();
     virtual Rank evaluate() override;
     std::vector<Rank>::iterator begin();

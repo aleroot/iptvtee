@@ -29,7 +29,7 @@ Analyzer::Analyzer(Playlist list, std::vector<std::chrono::seconds> timeouts, in
         while(work_result.size() < size) {
             //start processing of list in batches
             const size_t len = std::min(max_concurrent_analisys, size - i_playlist);
-            std::future<Rank> batch[len];
+            std::vector<std::future<Rank>> batch(len);
             
             for(int i = 0; i < len; i++, i_playlist++) {
                 const auto eval_max_time = timeouts[std::min(i_playlist, timeouts.size()-1)];
@@ -76,9 +76,9 @@ Rank Analyzer::calc_total() {
     if(work_result.size() > first) {
         total = work_result[first];
         
-        for(size_t i = 1; i < work_result.size(); i++) {
+        for(size_t i = 1; i < work_result.size(); i++)
             total = total + work_result[i];
-        }
+        
     }
     
     return total;
@@ -138,6 +138,13 @@ extern "C"
 {
     Analyzer* Analyzer_new(const char* url) {return new Analyzer(url);}
     float Analyzer_score(Analyzer* analyzer) {return analyzer->score();}
+    Analyzer* Analyzer_with_timeout(const char* url, int* timeouts, int num_timeouts) {
+        std::vector<std::chrono::seconds> timeout_vec;
+        for (int i = 0; i < num_timeouts; ++i)
+            timeout_vec.push_back(std::chrono::seconds{timeouts[i]});
+        
+        return new Analyzer(url, timeout_vec);
+    }
     void Analyzer_delete(Analyzer* analyzer)
     {
         if (analyzer)
