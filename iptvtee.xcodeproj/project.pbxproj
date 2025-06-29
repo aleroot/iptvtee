@@ -42,6 +42,7 @@
 		CA9B5EDB2CF7C7E100ED13D7 /* TestWordCounter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CA9B5EDA2CF7C7E100ED13D7 /* TestWordCounter.mm */; };
 		CAA25B2926581FC6003E45A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAA25B2826581FC6003E45A4 /* main.cpp */; };
 		CAB650492860E6C000C1F41A /* TestUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = CAB650482860E6C000C1F41A /* TestUtils.mm */; };
+		CACAFFA12E11E2B90080912A /* TestDownloader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CACAFFA02E11E2AB0080912A /* TestDownloader.mm */; };
 		FEC436892C3E6B990037354E /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEC436872C3E6B990037354E /* server.cpp */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +114,7 @@
 		CAA25B4426582093003E45A4 /* Picture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Picture.hpp; sourceTree = "<group>"; };
 		CAB650482860E6C000C1F41A /* TestUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestUtils.mm; sourceTree = "<group>"; };
 		CABB073B28ECA91100440534 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		CACAFFA02E11E2AB0080912A /* TestDownloader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestDownloader.mm; sourceTree = "<group>"; };
 		FEC436862C3E6B380037354E /* httplib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = httplib.h; sourceTree = "<group>"; };
 		FEC436872C3E6B990037354E /* server.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		FEC436882C3E6B990037354E /* server.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				CA396E35266CDB1F00575ECD /* TestIptvTee.m */,
 				CA396E37266CDB1F00575ECD /* Info.plist */,
 				CA396E3B266CDB7E00575ECD /* TestRank.mm */,
+				CACAFFA02E11E2AB0080912A /* TestDownloader.mm */,
 				CA32573228B8E64400D487D8 /* TestParameter.mm */,
 				CA685FA427A83ED800FE9753 /* TestPlaylist.mm */,
 				CA685FA827A9D08200FE9753 /* TestAnalyzer.mm */,
@@ -434,6 +437,7 @@
 				CA07A880285DAD0000060A6D /* TestStringUtils.mm in Sources */,
 				CA32573328B8E64400D487D8 /* TestParameter.mm in Sources */,
 				CA51257A285CF61B00260CC4 /* exporter.cpp in Sources */,
+				CACAFFA12E11E2B90080912A /* TestDownloader.mm in Sources */,
 				CA227ACF28573BA600967E65 /* report.cpp in Sources */,
 				CA685FAA27A9D82D00FE9753 /* analyzer.cpp in Sources */,
 				CA685FAB27A9D8D700FE9753 /* evaluator.cpp in Sources */,

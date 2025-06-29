@@ -60,5 +60,28 @@
     XCTAssertEqual(0, pl.size());
 }
 
+- (void)testNonM3UContentURLAsSingleItem {
+    // This URL points to a valid web page (HTML), not an M3U file.
+    std::string nonM3uUrl = "https://example.com";
+    Playlist pl = Playlist::fromM3U(nonM3uUrl);
+    
+    XCTAssertEqual(1, pl.size(), "A URL with non-M3U content should be treated as a single item playlist.");
+    XCTAssertEqual(nonM3uUrl, pl[0].url, "The item's URL should be the original URL.");
+}
+
+- (void)testRemoteM3UDownloadAndParse {
+    std::string url = "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_ny.m3u";
+    Playlist pl = Playlist::fromM3U(url);
+    XCTAssertGreaterThan(pl.size(), 0, "Should successfully download and parse the remote M3U playlist.");
+}
+
+- (void)testInvalidUrlThrowsException {
+    std::string invalidUrl = "this-is-not-a-valid-url-or-path";
+    XCTAssertThrows(Playlist::fromM3U(invalidUrl), "Passing a completely invalid string should throw an exception.");
+}
+
+- (void)testEmptyUrlReturnsEmptyPlaylist {
+    XCTAssertThrows(Playlist::fromM3U(""), "Passing an empty string should throw an exception.");
+}
 
 @end

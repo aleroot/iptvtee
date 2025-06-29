@@ -22,6 +22,7 @@ class HTTPDownloader {
 public:
     HTTPDownloader();
     ~HTTPDownloader();
+    static bool isUrl(const std::string& url);
     /**
      * Download a file using HTTP GET and store in in a std::string
      * @param url The URL to download

@@ -92,17 +92,20 @@ std::vector<Playlist> Playlist::extractM3U(std::string url,std::function<bool(co
 Playlist Playlist::fromM3U(std::string url,std::function<bool(const PlaylistItem&, const int count)> filter) {
     StringUtils::trim(url);
     if(url.size() > 0) {
-        HTTPDownloader downloader;
-        auto downloaded = downloader.download(url);
-        if(downloaded) {
-            try {
-                Playlist playlist = fromM3U(downloaded.value(), filter);
-                if(playlist.size() < 1)
-                    playlist.entries.push_back(PlaylistItem{.url = url});
-                return playlist;
-            } catch(const std::invalid_argument& e) {
-                return Playlist(); //The url is a valid page, but it is not really an M3U, so empty playlist
-            }
+        if(HTTPDownloader::isUrl(url)) {
+            HTTPDownloader downloader;
+            auto downloaded = downloader.download(url);
+            if(downloaded) {
+                try {
+                    Playlist playlist = fromM3U(downloaded.value(), filter);
+                    if(playlist.size() < 1)
+                        playlist.entries.push_back(PlaylistItem{.url = url});
+                    return playlist;
+                } catch(const std::invalid_argument& e) {
+                    return Playlist(); //The url is a valid page, but it is not really an M3U, so empty playlist
+                }
+            } else
+                return std::vector<PlaylistItem>{{.url = url}}; //it is a URL
         } else if(std::filesystem::is_directory(url)){
             Playlist playlist;
             for (auto &entry : std::filesystem::directory_iterator(url)) {

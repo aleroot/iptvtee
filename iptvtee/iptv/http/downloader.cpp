@@ -19,6 +19,7 @@ HTTPDownloader::HTTPDownloader() {
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/8.6.0");
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1); //Prevent "longjmp causes uninitialized stack frame" bug
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 60L);
 }
 
 HTTPDownloader::~HTTPDownloader() {
@@ -48,4 +49,18 @@ std::optional<std::stringstream> HTTPDownloader::download(const std::string& url
 std::optional<std::stringstream> HTTPDownloader::download(const std::string& url) {
     std::stringstream ss;
     return download(url, ss);
+}
+
+bool HTTPDownloader::isUrl(const std::string& text) {
+    if (text.empty())
+        return false;
+    
+    CURLU *url = curl_url();
+    if (!url)
+        return false; // Failed to create handle
+
+    // Attempt to parse the URL.
+    CURLUcode rc = curl_url_set(url, CURLUPART_URL, text.c_str(), 0);
+    curl_url_cleanup(url); // Clean up the handle
+    return (rc == CURLUE_OK);
 }
