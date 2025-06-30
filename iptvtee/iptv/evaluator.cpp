@@ -7,6 +7,7 @@
 
 #include "evaluator.hpp"
 #include "Utils.hpp"
+#include "http/downloader.hpp"
 #include "vlcpp/vlc.hpp"
 
 #include <thread>
@@ -16,6 +17,8 @@ Rank Evaluator::evaluate() {
     auto max = timeout.count();
     if(max <= 0)
         return Rank { .elements = 1, .score = 1.0f, .value = 0, .max_value = max};
+    if (!HTTPDownloader::isUrl(url))
+        return Rank { .elements = 1, .score = 0.0f, .value = 0, .max_value = 1 };
     const std::chrono::milliseconds start_delay = std::chrono::duration_cast<std::chrono::milliseconds>(initial_wait);
     static const auto vlc_instance = VLC::Instance(sizeof(vlc_minimal_args)/sizeof(*vlc_minimal_args), vlc_minimal_args);
     auto media = VLC::Media(vlc_instance, url, VLC::Media::FromLocation);
