@@ -20,7 +20,7 @@
  */
 class HTTPDownloader {
 public:
-    HTTPDownloader();
+    HTTPDownloader(const std::string userAgent = "curl/8.7.1", long timeout = 60L);
     ~HTTPDownloader();
     static bool isUrl(const std::string& url);
     /**

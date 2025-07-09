@@ -14,12 +14,12 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
     return size * nmemb;
 }
 
-HTTPDownloader::HTTPDownloader() {
+HTTPDownloader::HTTPDownloader(const std::string userAgent, long timeout) {
     curl = curl_easy_init();
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-    curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/8.6.0");
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, userAgent.c_str());
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1); //Prevent "longjmp causes uninitialized stack frame" bug
-    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 60L);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
 }
 
 HTTPDownloader::~HTTPDownloader() {
