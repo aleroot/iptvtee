@@ -11,7 +11,7 @@ SRC      := $(wildcard iptvtee/*.cpp) $(wildcard iptvtee/*/*.cpp) $(wildcard ipt
 
 OBJECTS      := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEPENDENCIES := $(OBJECTS:.o=.d)
-LIB_TARGET   := libanalyzer.so
+LIB_TARGET   := libiptvtee.so
 
 all: build $(APP_DIR)/$(TARGET)
 
@@ -33,7 +33,7 @@ endif
 
 -include $(DEPENDENCIES)
 
-.PHONY: all library build clean debug release info install
+.PHONY: all library build clean debug release info install uninstall
 
 build:
 	@mkdir -p $(APP_DIR)
@@ -51,6 +51,11 @@ library: build $(LIB_DIR)/$(LIB_TARGET)
 clean:
 	-@rm -rvf $(OBJ_DIR)/*
 	-@rm -rvf $(APP_DIR)/*
+	-@rm -rvf $(LIB_DIR)/*
+	
+clean-lib:
+	-@rm -rvf $(OBJ_DIR)/*
+	-@rm -rvf $(LIB_DIR)/*
 
 info:
 	@echo "[*] Application dir: ${APP_DIR}     "
@@ -59,6 +64,12 @@ info:
 	@echo "[*] Objects:         ${OBJECTS}     "
 	@echo "[*] Dependencies:    ${DEPENDENCIES}"
 
-install:
+install: $(LIB_DIR)/$(LIB_TARGET) $(APP_DIR)/$(TARGET)
 	install -d $(PREFIX)/bin/
 	install -m 755 $(APP_DIR)/$(TARGET) $(PREFIX)/bin/
+	install -d $(PREFIX)/lib/
+	install -m 755 $(LIB_DIR)/$(LIB_TARGET) $(PREFIX)/lib/
+
+uninstall:
+	@rm -f $(PREFIX)/bin/$(TARGET)
+	@rm -f $(PREFIX)/lib/$(LIB_TARGET)

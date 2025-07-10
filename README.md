@@ -130,6 +130,8 @@ To build on Linux just run make on the main project directory.
 Just make sure the dependencies libraries development packages are available on the system.
 To install in `/usr/local/bin` just run `make install` after `make`.
 
+**Building the dynamic library**: To build the libiptvtee dynamic library (`libiptvtee.so`) for use with Python ctypes bindings or other C/C++ applications, run: `make library`. This will create the library in the `build/lib/` directory. The library can be installed to `/usr/local/lib/` along with the main executable using `make install`.
+
 * ### macOS
 To build on MacOS just open the iptvtee.xcodeproj and build it from there.
 **Note** that the xcodeproj file contains the following changed settings:
