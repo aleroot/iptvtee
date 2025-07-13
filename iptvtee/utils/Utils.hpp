@@ -11,6 +11,7 @@
 #include <map>
 #include <sstream>
 #include <charconv>
+#include <chrono>
 #include "StringUtils.hpp"
 #include "playlist.hpp"
 namespace MapExtension
