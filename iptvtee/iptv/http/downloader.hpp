@@ -22,6 +22,7 @@ class HTTPDownloader {
 public:
     HTTPDownloader(const std::string userAgent = "curl/8.7.1", long timeout = 60L);
     ~HTTPDownloader();
+    static HTTPDownloader downloader();
     static bool isUrl(const std::string& url);
     /**
      * Download a file using HTTP GET and store in in a std::string

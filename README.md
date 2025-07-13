@@ -121,6 +121,17 @@ To illustrate, let's consider the **iptvtee** parameter(`vlc-parameters`). If yo
  This is equivalent to launching VLC with the following command line parameters:
   ```VLC --http-referrer "https://somewebsite.com/" --http-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/117.0"```
 
+#### Environment Variables
+
+The application's behavior can be further customized through the following environment variables:
+
+* **`VLC_PLUGIN_PATH`**: (Required) Specifies the path to the VLC plugins directory. This is essential for the evaluator engine to function correctly.
+* **`DOWNLOADER_AGENT`**: Overrides the default User-Agent string for HTTP requests made by the playlist downloader.
+* **`DOWNLOADER_TIMEOUT`**: Sets the timeout in seconds for HTTP download requests. The default is 45 seconds.
+* **`IPTVTEE_HOST`**: Sets the listening host address for the server mode. Defaults to `0.0.0.0` (all interfaces).
+* **`IPTVTEE_PORT`**: Sets the listening port for the server mode. Defaults to `8080`.
+* **`NO_COLOR`**: If this variable is set, it will disable the colored output in the console, which can be useful for logging or in environments that do not support ANSI color codes.
+
 ## Build
 
 In order to be able to build the project a compiler compatible with [C++20](https://en.wikipedia.org/wiki/C%2B%2B20) standard is required.

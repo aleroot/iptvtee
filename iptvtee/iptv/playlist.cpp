@@ -93,8 +93,7 @@ Playlist Playlist::fromM3U(std::string url,std::function<bool(const PlaylistItem
     StringUtils::trim(url);
     if(url.size() > 0) {
         if(HTTPDownloader::isUrl(url)) {
-            HTTPDownloader downloader;
-            auto downloaded = downloader.download(url);
+            auto downloaded = HTTPDownloader::downloader().download(url);
             if(downloaded) {
                 try {
                     Playlist playlist = fromM3U(downloaded.value(), filter);

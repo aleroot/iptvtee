@@ -64,3 +64,11 @@ bool HTTPDownloader::isUrl(const std::string& text) {
     curl_url_cleanup(url); // Clean up the handle
     return (rc == CURLUE_OK);
 }
+
+HTTPDownloader HTTPDownloader::downloader() {
+    const char* userAgentEnv = std::getenv("DOWNLOADER_AGENT");
+    const char* timeoutEnv = std::getenv("DOWNLOADER_TIMEOUT");
+    const std::string userAgent = userAgentEnv ? userAgentEnv : "VLC/3.0.21 LibVLC/3.0.21";
+    const int timeout = timeoutEnv ? std::stoi(timeoutEnv) : 45;
+    return HTTPDownloader(std::move(userAgent), timeout);
+}
